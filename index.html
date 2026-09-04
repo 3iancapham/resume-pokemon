@@ -3,817 +3,153 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bianca Pham · Waddle Résumé</title>
-<meta name="description" content="Bianca Pham — Technical Program & Product Management leader. A Club Penguin–style interactive résumé.">
+<title>Bianca Pham · Choose Your Inspiration</title>
+<meta name="description" content="Bianca Pham's résumé, two ways: a Club Penguin player card or a Pokémon-style RPG. Pick your childhood.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:ital,wght@0,500;0,700;0,800;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   :root {
-    --sky-top: #4fb6ff;
-    --sky-mid: #9ad9ff;
-    --sky-bot: #d9f1ff;
-    --snow: #ffffff;
-    --snow-2: #eef8ff;
-    --snow-shadow: #c4e1f5;
-    --navy: #0f3466;
-    --ink: #173b6b;
-    --ink-soft: #3d5f8f;
-    --blue: #2b7be4;
-    --blue-dark: #1b4f9c;
-    --panel: #f3faff;
-    --panel-2: #dcefff;
-    --panel-border: #1e4f8f;
-    --gold: #ffc72c;
-    --gold-2: #ff9d1a;
-    --gold-dark: #d97a00;
-    --brown: #5a3210;
-    --wood: #c27f3c;
-    --wood-dark: #8a4f1c;
-    --red: #e53935;
-    --penguin: #ff8ecf;
-    --penguin-dark: #c9569c;
-    --radius: 22px;
-    --display: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
-    --body: "Nunito", "Avenir Next", "Segoe UI", sans-serif;
+    --navy: #0f3466; --blue: #2b7be4; --gold: #ffc72c; --brown: #5a3210;
+    --fire: #e0482c; --leaf: #3c9a4c; --indigo: #4c3f9a;
+    --ink: #1c1c28;
   }
-
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: var(--body);
-    font-weight: 600;
-    color: var(--ink);
-    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 40%, var(--sky-bot) 70%, #f4fbff 100%);
-    min-height: 100vh;
-    overflow-x: hidden;
-    padding-bottom: 110px;
-  }
-  a { color: var(--blue-dark); }
-  ::selection { background: var(--gold); color: var(--brown); }
+  html, body { height: 100%; }
+  body { margin: 0; font-family: "Nunito", "Avenir Next", "Segoe UI", sans-serif; font-weight: 600; color: var(--ink); background: #10122a; overflow-x: hidden; }
 
-  /* ---------- Sky scene ---------- */
-  .scene { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-  .sun {
-    position: absolute; top: 6vh; right: 10vw; width: 120px; height: 120px; border-radius: 50%;
-    background: radial-gradient(circle, #fff6c2 0%, #ffe27a 55%, rgba(255,226,122,0) 72%);
-    box-shadow: 0 0 80px 30px rgba(255, 240, 180, .45);
-  }
-  .cloud {
-    position: absolute; background: #fff; border-radius: 100px; opacity: .95;
-    filter: drop-shadow(0 6px 0 rgba(120,170,210,.25));
-    animation: drift linear infinite;
-  }
-  .cloud::before, .cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; }
-  .cloud.c1 { width: 180px; height: 56px; top: 12vh; left: -220px; animation-duration: 90s; }
-  .cloud.c1::before { width: 80px; height: 80px; left: 28px; top: -40px; }
-  .cloud.c1::after { width: 60px; height: 60px; left: 95px; top: -26px; }
-  .cloud.c2 { width: 130px; height: 44px; top: 26vh; left: -160px; animation-duration: 120s; animation-delay: -50s; }
-  .cloud.c2::before { width: 60px; height: 60px; left: 22px; top: -30px; }
-  .cloud.c2::after { width: 46px; height: 46px; left: 70px; top: -18px; }
-  .cloud.c3 { width: 220px; height: 64px; top: 5vh; left: -260px; animation-duration: 150s; animation-delay: -90s; opacity: .8; }
-  .cloud.c3::before { width: 96px; height: 96px; left: 40px; top: -50px; }
-  .cloud.c3::after { width: 70px; height: 70px; left: 120px; top: -30px; }
-  @keyframes drift { to { transform: translateX(calc(100vw + 320px)); } }
+  .top { position: relative; z-index: 3; text-align: center; padding: 40px 20px 10px; color: #fff; }
+  .top h1 { font-family: "Lilita One", "Arial Rounded MT Bold", sans-serif; font-size: clamp(30px, 5.4vw, 60px); margin: 0 0 8px; letter-spacing: .5px; line-height: 1.05; text-shadow: 0 4px 0 rgba(0,0,0,.35); }
+  .top h1 span { color: var(--gold); }
+  .top p { margin: 0; font-size: 18px; opacity: .85; }
+  .top .name { display: inline-block; margin-top: 14px; font-family: "Press Start 2P", monospace; font-size: 10px; letter-spacing: 1px; background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35); padding: 8px 12px; border-radius: 8px; }
 
-  .hills {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 42vh;
-    background:
-      radial-gradient(ellipse 60% 100% at 15% 100%, #fff 0 60%, transparent 61%),
-      radial-gradient(ellipse 70% 90% at 70% 100%, #f6fcff 0 62%, transparent 63%),
-      radial-gradient(ellipse 50% 70% at 100% 100%, #fff 0 60%, transparent 61%),
-      linear-gradient(180deg, transparent 0 30%, #eaf6ff 30%);
-  }
-  .mtn { position: absolute; bottom: 30vh; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-bottom: 180px solid #b9dcf3; }
-  .mtn::after { content: ""; position: absolute; left: -60px; top: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 66px solid #fff; }
-  .mtn.m1 { left: 4vw; }
-  .mtn.m2 { left: 24vw; transform: scale(.7); bottom: 31vh; }
-  .mtn.m3 { right: 6vw; transform: scale(1.15); }
-  .flake { position: absolute; top: -12px; width: 8px; height: 8px; border-radius: 50%; background: #fff; opacity: .85; animation: fall linear infinite; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 190px); }
+  .choice { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 28px 56px; text-decoration: none; color: inherit; overflow: hidden; isolation: isolate; transition: filter .25s; }
+  .choice:hover, .choice:focus-visible { filter: brightness(1.06); outline: none; }
+  .choice .art { position: relative; z-index: 2; margin-bottom: 18px; transition: transform .35s cubic-bezier(.2,.8,.2,1.4); }
+  .choice:hover .art { transform: translateY(-10px) scale(1.06); }
+  .choice h2 { position: relative; z-index: 2; font-family: "Lilita One", sans-serif; font-size: clamp(30px, 4.4vw, 52px); margin: 0 0 8px; line-height: 1; letter-spacing: .5px; }
+  .choice p { position: relative; z-index: 2; margin: 0 0 22px; max-width: 360px; font-size: 17px; line-height: 1.45; }
+  .choice .era { position: absolute; z-index: 2; top: 18px; left: 50%; transform: translateX(-50%); font-family: "Press Start 2P", monospace; font-size: 9px; letter-spacing: 1px; padding: 7px 10px; border-radius: 6px; }
+  .btn { position: relative; z-index: 2; display: inline-block; font-family: "Lilita One", sans-serif; font-size: 19px; letter-spacing: .5px; padding: 12px 22px 13px; border-radius: 14px; border: 3px solid; transition: transform .08s; }
+  .choice:hover .btn { transform: translateY(-2px); }
+
+  /* ---- Club Penguin side ---- */
+  .cp { background: linear-gradient(180deg, #4fb6ff 0%, #a9dcff 55%, #eaf6ff 56%, #f7fcff 100%); color: var(--navy); }
+  .cp::before { content: ""; position: absolute; left: -20%; right: -20%; bottom: -120px; height: 260px; border-radius: 50%; background: #fff; box-shadow: 0 -8px 0 #dcefff; z-index: 1; }
+  .cp .era { background: var(--gold); color: var(--brown); border: 2px solid var(--brown); box-shadow: 0 3px 0 #d97a00; }
+  .cp h2 { color: #fff; text-shadow: 0 4px 0 var(--navy); }
+  .cp p { color: var(--navy); font-weight: 700; }
+  .cp .btn { color: var(--brown); background: linear-gradient(#ffd75e, var(--gold) 45%, #ff9d1a); border-color: var(--brown); box-shadow: 0 5px 0 #d97a00, inset 0 2px 0 rgba(255,255,255,.55); }
+  .cp .art svg { width: 190px; height: auto; filter: drop-shadow(0 10px 0 rgba(15,52,102,.15)); }
+  .cp .flake { position: absolute; top: -12px; width: 7px; height: 7px; border-radius: 50%; background: #fff; opacity: .8; animation: fall linear infinite; z-index: 1; }
   @keyframes fall { to { transform: translateY(110vh) translateX(30px); } }
+  .cp .cloud { position: absolute; z-index: 1; background: #fff; border-radius: 100px; width: 150px; height: 46px; opacity: .95; animation: drift 70s linear infinite; }
+  .cp .cloud::before, .cp .cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; }
+  .cp .cloud::before { width: 66px; height: 66px; left: 24px; top: -34px; } .cp .cloud::after { width: 50px; height: 50px; left: 82px; top: -22px; }
+  .cp .c1 { top: 9%; left: -180px; } .cp .c2 { top: 24%; left: -180px; animation-delay: -35s; transform: scale(.7); }
+  @keyframes drift { to { transform: translateX(120vw); } }
+  .cp:hover .art svg { animation: waddle .5s ease-in-out infinite alternate; }
+  @keyframes waddle { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
 
-  /* ---------- Layout ---------- */
-  .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
-  header.top { padding: 28px 0 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo-badge {
-    font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: .5px; color: #fff;
-    background: linear-gradient(#3f95ff, #1b5fc4); border: 4px solid var(--navy); border-radius: 18px; padding: 10px 16px 12px;
-    text-shadow: 0 3px 0 rgba(0,0,0,.25); box-shadow: 0 6px 0 var(--navy), inset 0 3px 0 rgba(255,255,255,.35);
-    transform: rotate(-2deg);
+  /* ---- Pokémon side ---- */
+  .pk { background: linear-gradient(180deg, #7ac7ff 0%, #b6e3ff 48%, #78c850 48.5%, #58a838 100%); color: #fff; }
+  .pk::before { content: ""; position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px); background-size: 16px 16px; opacity: .6; }
+  .pk .era { background: var(--indigo); color: #e8e2ff; border: 2px solid #2f2566; box-shadow: 0 3px 0 #2f2566; }
+  .pk h2 { color: #fff; text-shadow: 0 4px 0 var(--fire), 0 8px 0 rgba(0,0,0,.2); }
+  .pk p { color: #10122a; font-weight: 700; }
+  .pk .btn { color: #fff; background: linear-gradient(#f26a52, var(--fire) 50%, #b8321a); border-color: #6e1e10; box-shadow: 0 5px 0 #6e1e10, inset 0 2px 0 rgba(255,255,255,.35); text-shadow: 0 2px 0 rgba(0,0,0,.3); }
+  .pk canvas { width: 256px; height: 128px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+  .pk:hover canvas { animation: bounce .6s ease-in-out infinite alternate; }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+  footer .alt { display: inline-block; font-family: "Press Start 2P", monospace; font-size: 8px; letter-spacing: .5px; margin-bottom: 12px; color: rgba(255,255,255,.85); }
+
+  footer { position: relative; z-index: 3; text-align: center; color: rgba(255,255,255,.7); font-size: 14px; padding: 18px 20px 26px; }
+  footer a { color: var(--gold); }
+
+  @media (max-width: 760px) {
+    .choices { grid-template-columns: 1fr; min-height: 0; }
+    .choice { min-height: 0; padding: 60px 24px 56px; }
+    .top { padding-top: 30px; }
   }
-  .logo-badge span { color: var(--gold); }
-  .tagline { font-weight: 800; color: var(--navy); font-size: 15px; max-width: 520px; text-align: right; }
-  .tagline b { color: #fff; background: var(--blue-dark); padding: 2px 8px; border-radius: 8px; }
-
-  /* ---------- Panels (CP windows) ---------- */
-  .panel {
-    background: linear-gradient(180deg, #ffffff 0%, var(--panel) 30%, var(--panel-2) 100%);
-    border: 4px solid var(--panel-border); border-radius: var(--radius);
-    box-shadow: 0 10px 0 rgba(15, 52, 102, .28), inset 0 3px 0 #fff;
-    position: relative;
-  }
-  .panel-title {
-    font-family: var(--display); color: #fff; font-size: 22px; letter-spacing: .4px;
-    background: linear-gradient(#3b8dff, #1f5cb8); border-bottom: 4px solid var(--panel-border);
-    padding: 10px 20px; border-radius: 16px 16px 0 0; text-shadow: 0 2px 0 rgba(0,0,0,.3);
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  }
-  .panel-title .x { width: 26px; height: 26px; border-radius: 50%; background: var(--red); border: 3px solid #8b1d1a; display: grid; place-items: center; font-size: 14px; color: #fff; box-shadow: inset 0 2px 0 rgba(255,255,255,.35); }
-  .panel-body { padding: 20px; }
-
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 17px; letter-spacing: .3px;
-    color: var(--brown); background: linear-gradient(#ffd75e, var(--gold) 45%, var(--gold-2)); border: 3px solid var(--brown);
-    border-radius: 14px; padding: 9px 16px 10px; text-decoration: none; cursor: pointer;
-    box-shadow: 0 5px 0 var(--gold-dark), inset 0 2px 0 rgba(255,255,255,.55); transition: transform .08s, box-shadow .08s;
-    text-shadow: 0 1px 0 rgba(255,255,255,.4);
-  }
-  .btn:hover { transform: translateY(-1px); }
-  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--gold-dark), inset 0 2px 0 rgba(255,255,255,.55); }
-  .btn.blue { color: #fff; background: linear-gradient(#5fa8ff, #2b7be4 45%, #1b5fc4); border-color: var(--navy); box-shadow: 0 5px 0 var(--navy), inset 0 2px 0 rgba(255,255,255,.4); text-shadow: 0 2px 0 rgba(0,0,0,.25); }
-  .btn.blue:active { box-shadow: 0 1px 0 var(--navy), inset 0 2px 0 rgba(255,255,255,.4); }
-  .btn:focus-visible, .swatch:focus-visible, .tool:focus-visible { outline: 4px solid var(--gold); outline-offset: 3px; }
-
-  /* wooden signs */
-  .sign {
-    display: inline-block; font-family: var(--display); font-size: clamp(24px, 3.4vw, 36px); color: #ffe38a; letter-spacing: .5px;
-    background:
-      repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0 3px, transparent 3px 11px),
-      linear-gradient(#cf8a45, var(--wood) 50%, #a3652a);
-    border: 4px solid var(--brown); border-radius: 12px; padding: 10px 26px 12px;
-    text-shadow: 0 3px 0 var(--brown), 0 0 2px rgba(0,0,0,.4); box-shadow: 0 6px 0 var(--wood-dark), 0 12px 0 rgba(15,52,102,.18);
-    position: relative; margin: 0 0 22px;
-  }
-  .sign::before, .sign::after { content: ""; position: absolute; top: 50%; width: 10px; height: 10px; border-radius: 50%; background: #3a2008; box-shadow: inset 0 2px 0 rgba(255,255,255,.2); transform: translateY(-50%); }
-  .sign::before { left: 9px; } .sign::after { right: 9px; }
-  .sign small { display: block; font-family: var(--body); font-weight: 800; font-size: 12px; color: #ffefc2; letter-spacing: 2px; text-transform: uppercase; text-shadow: none; margin-top: 2px; }
-  .section { margin-top: 56px; }
-  .section-head { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
-  .section-head p { margin: 0 0 22px; color: var(--navy); font-weight: 700; max-width: 520px; }
-
-  /* ---------- Hero ---------- */
-  .hero { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; margin-top: 24px; }
-  .card .panel-body { padding: 18px 18px 22px; }
-  .stage {
-    position: relative; height: 330px; border-radius: 16px; overflow: hidden; border: 3px solid var(--panel-border);
-    background: linear-gradient(180deg, #7ec8ff 0%, #c6e8ff 55%, #fff 56%, #eef8ff 100%);
-  }
-  .stage::after { content: ""; position: absolute; left: -20%; right: -20%; bottom: -60px; height: 120px; border-radius: 50%; background: #fff; box-shadow: 0 -6px 0 #dcefff; }
-  .stage svg.penguin { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); width: 190px; height: auto; z-index: 2; cursor: pointer; filter: drop-shadow(0 8px 0 rgba(15,52,102,.15)); transition: transform .2s; }
-  .stage svg.penguin:hover { transform: translateX(-50%) scale(1.03); }
-  .penguin .body { fill: var(--penguin); }
-  .penguin .body-line { stroke: var(--penguin-dark); }
-  .penguin .flipper-r { transform-origin: 158px 118px; }
-  .penguin.wave .flipper-r { animation: wave .35s ease-in-out 4 alternate; }
-  @keyframes wave { from { transform: rotate(0deg); } to { transform: rotate(-70deg); } }
-  .penguin.wave { animation: hop .6s ease-out 2; }
-  @keyframes hop { 0%,100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-22px); } }
-  .bubble {
-    position: absolute; top: 14px; left: 14px; right: 14px; z-index: 3; background: #fff; border: 3px solid var(--navy); border-radius: 16px;
-    padding: 10px 14px; font-size: 14px; line-height: 1.35; color: var(--navy); font-weight: 700; box-shadow: 0 4px 0 rgba(15,52,102,.2);
-  }
-  .bubble::after { content: ""; position: absolute; left: 50%; bottom: -14px; width: 20px; height: 14px; background: #fff; clip-path: polygon(0 0, 100% 0, 50% 100%); transform: translateX(-50%); }
-  .bubble::before { content: ""; position: absolute; left: 50%; bottom: -18px; width: 26px; height: 18px; background: var(--navy); clip-path: polygon(0 0, 100% 0, 50% 100%); transform: translateX(-50%); }
-  .swatches { position: absolute; left: 12px; bottom: 12px; z-index: 3; display: flex; gap: 6px; background: rgba(255,255,255,.75); border: 2px solid var(--panel-border); border-radius: 30px; padding: 5px 8px; }
-  .swatch { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 2px var(--navy); cursor: pointer; padding: 0; transition: transform .12s; }
-  .swatch:hover { transform: scale(1.2); }
-  .swatch[aria-pressed="true"] { transform: scale(1.25); box-shadow: 0 0 0 2px var(--navy), 0 0 0 5px var(--gold); }
-    .member-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--brown); border: 3px solid var(--brown); border-radius: 30px; padding: 4px 10px 5px; font-family: var(--display); font-size: 13px; letter-spacing: .5px; box-shadow: 0 3px 0 var(--gold-dark); }
-
-  .card h1 { font-family: var(--display); font-size: 40px; margin: 16px 0 2px; color: var(--navy); letter-spacing: .5px; line-height: 1; text-shadow: 0 3px 0 #fff, 0 5px 0 rgba(15,52,102,.15); }
-  .card .role { margin: 0; color: var(--ink-soft); font-weight: 800; font-size: 15px; }
-  .card .loc { display: flex; gap: 8px; align-items: center; margin: 12px 0 0; font-size: 13.5px; color: var(--navy); background: #fff; border: 2px solid var(--panel-border); border-radius: 12px; padding: 8px 12px; line-height: 1.35; }
-  .card .loc svg { flex: none; }
-  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-  .actions .btn { font-size: 15px; padding: 8px 13px 9px; flex: 1 1 auto; justify-content: center; }
-
-  .hero-right { display: flex; flex-direction: column; gap: 22px; }
-  .headline { font-family: var(--display); font-size: clamp(34px, 5.2vw, 62px); line-height: .98; color: #fff; margin: 8px 0 0; text-shadow: 0 4px 0 var(--navy), 0 8px 0 rgba(15,52,102,.2); letter-spacing: .5px; }
-  .headline em { font-style: normal; color: var(--gold); }
-  .lede { font-size: 17px; color: var(--navy); font-weight: 700; max-width: 640px; margin: 0; }
-  .coins { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-  .coin-tile { background: #fff; border: 3px solid var(--panel-border); border-radius: 16px; padding: 12px 14px 14px; box-shadow: 0 6px 0 rgba(15,52,102,.22); display: flex; gap: 10px; align-items: center; }
-  .coin-tile svg { flex: none; }
-  .coin-tile b { display: block; font-family: var(--display); font-size: 24px; color: var(--navy); line-height: 1; }
-  .coin-tile span { font-size: 12px; font-weight: 800; color: var(--ink-soft); line-height: 1.2; }
-
-  /* ---------- Newspaper ---------- */
-  .paper {
-    background: repeating-linear-gradient(0deg, #fdf8ea 0 27px, #f5ecd3 27px 28px), #fdf8ea; border: 4px solid #4a3b1f; border-radius: 6px; color: #2b2416;
-    padding: 22px 28px 26px; box-shadow: 8px 8px 0 rgba(15,52,102,.22); transform: rotate(-.6deg); font-family: Georgia, "Times New Roman", serif; font-weight: 400;
-  }
-  .paper .masthead { text-align: center; border-bottom: 3px double #4a3b1f; padding-bottom: 8px; margin-bottom: 14px; }
-  .paper .masthead h2 { font-family: var(--display); font-size: clamp(28px, 4vw, 44px); margin: 0; letter-spacing: 1px; color: #1d1a12; }
-  .paper .masthead small { display: block; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
-  .paper h3 { font-family: var(--display); font-size: 26px; margin: 0 0 8px; line-height: 1.1; color: #1d1a12; }
-  .paper .cols { column-count: 2; column-gap: 28px; column-rule: 1px solid #c9bd9c; font-size: 15px; line-height: 1.55; }
-  .paper .cols p { margin: 0 0 12px; }
-  .paper .cols p:first-of-type::first-letter { font-family: var(--display); font-size: 46px; float: left; line-height: .85; padding: 4px 6px 0 0; color: var(--blue-dark); }
-  .paper .stamp-seeking { display: inline-block; margin-top: 6px; background: var(--gold); color: var(--brown); font-family: var(--display); font-size: 14px; letter-spacing: 1px; padding: 4px 10px; border: 2px solid var(--brown); border-radius: 8px; transform: rotate(-2deg); }
-
-  /* ---------- Missions ---------- */
-  .missions { position: relative; display: flex; flex-direction: column; gap: 22px; padding-left: 74px; }
-  .missions::before { content: ""; position: absolute; left: 28px; top: 20px; bottom: 20px; width: 8px; border-radius: 8px; background: linear-gradient(#fff, #cfe8fb); border: 2px solid var(--panel-border); }
-  .mission { position: relative; }
-  .mission .badge {
-    position: absolute; left: -74px; top: 8px; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
-    background: radial-gradient(circle at 35% 30%, #fff2a8, var(--gold) 45%, var(--gold-2) 100%); border: 4px solid var(--brown);
-    font-family: var(--display); font-size: 12px; color: var(--brown); text-align: center; line-height: 1; box-shadow: 0 5px 0 var(--gold-dark);
-  }
-  .mission .badge b { display: block; font-size: 20px; }
-  .mission .panel-body { padding: 16px 20px 18px; }
-  .m-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: baseline; }
-  .m-head h3 { font-family: var(--display); font-size: 24px; color: var(--navy); margin: 0; letter-spacing: .3px; }
-  .m-head .org { color: var(--ink-soft); font-weight: 800; font-size: 15px; margin: 2px 0 0; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; padding: 4px 10px; border-radius: 30px; border: 2px solid var(--panel-border); background: #fff; color: var(--navy); }
-  .chip.room { background: var(--navy); color: #fff; border-color: var(--navy); }
-  .chip.room::before { content: "📍"; font-size: 11px; }
-  .mission ul { margin: 12px 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .mission li { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.5; }
-  .mission li::before { content: ""; position: absolute; left: 0; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff2a8, var(--gold) 50%, var(--gold-2)); border: 2px solid var(--brown); }
-  .mission mark { background: linear-gradient(transparent 45%, #ffe27a 45%); color: var(--navy); font-weight: 800; padding: 0 2px; }
-
-  /* ---------- Stamp book ---------- */
-  .stampbook .panel-body { padding: 26px 22px 28px; background: radial-gradient(circle at 50% 0, rgba(255,255,255,.7), transparent 60%); }
-  .stamps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
-  .stamp { text-align: center; perspective: 800px; }
-  .stamp .disc {
-    width: 132px; height: 132px; margin: 0 auto 12px; border-radius: 50%; border: 7px dotted #fff; position: relative;
-    background: radial-gradient(circle at 35% 30%, #fff5c2, var(--gold) 45%, var(--gold-2) 100%); box-shadow: 0 0 0 4px var(--brown), 0 8px 0 4px var(--gold-dark);
-    display: grid; place-items: center; transition: transform .5s cubic-bezier(.2,.8,.2,1.2);
-  }
-  .stamp:hover .disc { transform: rotateY(360deg) scale(1.06); }
-  .stamp .disc .ring { position: absolute; inset: 12px; border-radius: 50%; border: 3px solid rgba(90,50,16,.35); }
-  .stamp .disc svg { width: 58px; height: 58px; }
-  .stamp h4 { font-family: var(--display); font-size: 19px; margin: 0; color: var(--navy); letter-spacing: .3px; }
-  .stamp .org { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: var(--ink-soft); margin: 2px 0 8px; }
-  .stamp p { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--ink); }
-
-  /* ---------- Pet shop ---------- */
-  .puffles { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; }
-  .puffle-card .panel-body { padding: 18px 20px 22px; text-align: center; }
-  .puffle-card svg.puffle { width: 120px; height: 120px; margin: -50px auto 0; display: block; filter: drop-shadow(0 6px 0 rgba(15,52,102,.18)); animation: bounce 2.4s ease-in-out infinite; }
-  .puffle-card:nth-child(2) svg.puffle { animation-delay: -.8s; }
-  .puffle-card:nth-child(3) svg.puffle { animation-delay: -1.6s; }
-  @keyframes bounce { 0%,100% { transform: translateY(0) scaleX(1); } 50% { transform: translateY(-10px) scaleX(.97); } }
-  .puffle-card h3 { font-family: var(--display); font-size: 24px; margin: 8px 0 2px; color: var(--navy); }
-  .puffle-card .trait { font-size: 12.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
-  .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
-  .tag { font-size: 12.5px; font-weight: 800; padding: 5px 10px; background: #fff; border: 2px solid var(--panel-border); border-radius: 10px; color: var(--navy); box-shadow: 0 3px 0 rgba(15,52,102,.18); }
-  .tag.hot { background: var(--gold); border-color: var(--brown); color: var(--brown); box-shadow: 0 3px 0 var(--gold-dark); }
-  .puffles { margin-top: 62px; }
-
-  /* ---------- Academy + Igloo ---------- */
-  .two { display: grid; grid-template-columns: 1.15fr .85fr; gap: 22px; align-items: start; }
-  .diploma { background: #fffdf5; border: 4px solid var(--brown); border-radius: 8px; padding: 26px 28px; box-shadow: 0 8px 0 rgba(15,52,102,.22); position: relative; outline: 3px double #d7b46a; outline-offset: -12px; }
-  .diploma h3 { font-family: var(--display); font-size: 26px; color: var(--navy); margin: 0; }
-  .diploma .school { font-family: Georgia, serif; font-style: italic; font-weight: 400; color: #4a3b1f; margin: 2px 0 14px; }
-  .diploma ul { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
-  .diploma li { padding-left: 24px; position: relative; font-size: 14.5px; line-height: 1.45; }
-  .diploma li::before { content: "★"; position: absolute; left: 0; color: var(--gold-2); text-shadow: 0 1px 0 var(--brown); }
-  .diploma .seal { position: absolute; right: 22px; bottom: 18px; width: 74px; height: 74px; border-radius: 50%; border: 6px dotted #fff; background: radial-gradient(circle at 35% 30%, #ff8a80, var(--red) 55%, #a21c18); box-shadow: 0 0 0 3px #8b1d1a; display: grid; place-items: center; color: #fff; font-family: var(--display); font-size: 11px; text-align: center; line-height: 1.05; transform: rotate(-8deg); }
-  .diploma .minor { margin-top: 14px; padding-top: 12px; border-top: 2px dashed #d7b46a; }
-  .diploma .minor h4 { font-family: var(--display); font-size: 18px; margin: 0; color: var(--navy); }
-
-  .igloo-card .panel-body { padding: 20px 22px 24px; display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; }
-  .igloo-card svg { width: 120px; height: auto; }
-  .igloo-card h3 { font-family: var(--display); font-size: 24px; margin: 0 0 4px; color: var(--navy); }
-  .igloo-card p { margin: 0 0 12px; font-size: 14.5px; line-height: 1.5; }
-
-  /* ---------- Bottom toolbar ---------- */
-  .toolbar {
-    position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 50; width: min(1040px, calc(100% - 20px));
-    background: linear-gradient(#2f6fd1, #123f8a); border: 4px solid var(--navy); border-radius: 26px; padding: 8px 12px;
-    display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 0 rgba(15,52,102,.35), inset 0 3px 0 rgba(255,255,255,.3);
-  }
-  .toolbar form { flex: 1; display: flex; gap: 8px; min-width: 120px; }
-  .toolbar input {
-    flex: 1; min-width: 0; font: 700 15px var(--body); color: var(--navy); background: #fff; border: 3px solid var(--navy); border-radius: 16px; padding: 9px 14px; box-shadow: inset 0 3px 0 #dcefff;
-  }
-  .toolbar input::placeholder { color: #7d95b5; }
-  .tool { width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--navy); background: linear-gradient(#ffd75e, var(--gold) 50%, var(--gold-2)); display: grid; place-items: center; cursor: pointer; text-decoration: none; box-shadow: 0 4px 0 var(--gold-dark); transition: transform .1s; position: relative; }
-  .tool svg { width: 24px; height: 24px; }
-  .tool:hover { transform: translateY(-3px); }
-  .tool:active { transform: translateY(1px); }
-  .tool::after { content: attr(data-label); position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%) scale(.85); background: var(--navy); color: #fff; font: 700 12px var(--body); padding: 4px 8px; border-radius: 8px; white-space: nowrap; opacity: 0; transition: .15s; pointer-events: none; }
-  .tool:hover::after, .tool:focus-visible::after { opacity: 1; transform: translateX(-50%) scale(1); }
-  .send { font-family: var(--display); color: var(--brown); background: linear-gradient(#ffd75e, var(--gold) 50%, var(--gold-2)); border: 3px solid var(--brown); border-radius: 16px; padding: 0 14px; cursor: pointer; font-size: 15px; box-shadow: 0 4px 0 var(--gold-dark); }
-
-  footer { text-align: center; margin-top: 70px; color: var(--navy); font-size: 13px; font-weight: 700; }
-  footer .waddle { font-family: var(--display); font-size: 28px; color: #fff; text-shadow: 0 3px 0 var(--navy); display: block; margin-bottom: 8px; }
-
-  /* reveal */
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
-  .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .cloud, .flake, .puffle-card svg.puffle { animation: none !important; }
-  }
-
-  @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .two { grid-template-columns: 1fr; }
-    .tagline { text-align: left; }
-    .paper .cols { column-count: 1; }
-  }
-  @media (max-width: 600px) {
-    .missions { padding-left: 0; }
-    .missions::before { display: none; }
-    .mission .badge { position: static; width: 52px; height: 52px; margin-bottom: -20px; margin-left: 14px; z-index: 2; font-size: 10px; }
-    .mission .badge b { font-size: 16px; }
-    .igloo-card .panel-body { grid-template-columns: 1fr; text-align: center; }
-    .igloo-card svg { margin: 0 auto; }
-    .toolbar .tool.optional { display: none; }
-    .headline { font-size: 34px; }
-  }
+  @media (prefers-reduced-motion: reduce) { .flake, .cloud, .choice:hover .art svg, .pk:hover canvas { animation: none !important; } }
 </style>
 </head>
 <body>
 
-<!-- ===== Background scene ===== -->
-<div class="scene" aria-hidden="true">
-  <div class="sun"></div>
-  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
-  <div class="mtn m1"></div><div class="mtn m2"></div><div class="mtn m3"></div>
-  <div class="hills"></div>
-  <div id="snow"></div>
-</div>
+<header class="top">
+  <h1>Choose your <span>90s childhood</span> inspiration</h1>
+  <p>Same résumé, two ways to read it. Pick the one that raised you.</p>
+  <span class="name">BIANCA PHAM · TPM & PRODUCT LEADER</span>
+</header>
 
-<!-- ===== Reusable SVG symbols ===== -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="puffle" viewBox="0 0 120 120">
-      <g stroke="#1b1b1b" stroke-width="3" stroke-linecap="round" fill="none">
-        <path d="M60 22 C 58 10, 52 6, 46 8" style="stroke:var(--c);stroke-width:7"/>
-        <path d="M62 20 C 64 8, 70 4, 78 7" style="stroke:var(--c);stroke-width:7"/>
-        <path d="M58 20 C 56 8, 60 2, 66 4" style="stroke:var(--c);stroke-width:7"/>
-      </g>
-      <circle cx="60" cy="68" r="44" style="fill:var(--c)"/>
-      <ellipse cx="44" cy="46" rx="16" ry="10" fill="#fff" opacity=".35"/>
-      <ellipse cx="47" cy="62" rx="10" ry="12" fill="#fff"/>
-      <ellipse cx="73" cy="62" rx="10" ry="12" fill="#fff"/>
-      <circle cx="50" cy="64" r="4.5" fill="#1b1b1b"/>
-      <circle cx="70" cy="64" r="4.5" fill="#1b1b1b"/>
-      <circle cx="51.5" cy="62" r="1.5" fill="#fff"/>
-      <circle cx="71.5" cy="62" r="1.5" fill="#fff"/>
-      <path d="M52 80 Q60 88 68 80" stroke="#1b1b1b" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <ellipse cx="38" cy="78" rx="6" ry="3.5" fill="#fff" opacity=".45"/>
-      <ellipse cx="82" cy="78" rx="6" ry="3.5" fill="#fff" opacity=".45"/>
-    </symbol>
-    <symbol id="coin" viewBox="0 0 40 40">
-      <circle cx="20" cy="20" r="18" fill="#e08a00"/>
-      <circle cx="20" cy="18" r="17" fill="#ffc72c"/>
-      <circle cx="20" cy="18" r="11" fill="none" stroke="#e08a00" stroke-width="3"/>
-      <path d="M20 10 l2.4 5 5.5.7-4 3.8 1 5.5-4.9-2.7-4.9 2.7 1-5.5-4-3.8 5.5-.7z" fill="#e08a00"/>
-    </symbol>
-  </defs>
-</svg>
-
-<div class="wrap">
-
-  <header class="top">
-    <div class="logo">
-      <div class="logo-badge">Club <span>Bianca</span></div>
+<main class="choices">
+  <a class="choice cp" href="club-penguin.html" aria-label="Open the Club Penguin version of the résumé">
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <span class="era">CLUB PENGUIN</span>
+    <div class="art">
+      <svg viewBox="0 0 200 230" aria-hidden="true">
+        <ellipse cx="76" cy="212" rx="28" ry="12" fill="#ff9d1a" stroke="#c96a00" stroke-width="4"/>
+        <ellipse cx="124" cy="212" rx="28" ry="12" fill="#ff9d1a" stroke="#c96a00" stroke-width="4"/>
+        <ellipse cx="40" cy="128" rx="16" ry="44" transform="rotate(22 40 128)" fill="#ff8ecf"/>
+        <path d="M100 30 C 150 30, 172 70, 172 130 C 172 185, 140 208, 100 208 C 60 208, 28 185, 28 130 C 28 70, 50 30, 100 30 Z" fill="#ff8ecf"/>
+        <path d="M100 30 C 150 30, 172 70, 172 130 C 172 185, 140 208, 100 208 C 60 208, 28 185, 28 130 C 28 70, 50 30, 100 30 Z" fill="none" stroke="#c9569c" stroke-width="4" opacity=".6"/>
+        <ellipse cx="100" cy="146" rx="46" ry="52" fill="#fff"/>
+        <ellipse cx="158" cy="128" rx="16" ry="44" transform="rotate(-22 158 128)" fill="#ff8ecf"/>
+        <ellipse cx="86" cy="92" rx="12" ry="15" fill="#fff"/><ellipse cx="114" cy="92" rx="12" ry="15" fill="#fff"/>
+        <circle cx="89" cy="95" r="5.5" fill="#1b1b1b"/><circle cx="111" cy="95" r="5.5" fill="#1b1b1b"/>
+        <circle cx="91" cy="93" r="1.8" fill="#fff"/><circle cx="113" cy="93" r="1.8" fill="#fff"/>
+        <path d="M100 104 L 78 114 L 100 128 L 122 114 Z" fill="#ffb400" stroke="#d97a00" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M54 56 C 58 16, 142 16, 146 56 Z" fill="#e53935" stroke="#8b1d1a" stroke-width="4" stroke-linejoin="round"/>
+        <rect x="50" y="46" width="100" height="17" rx="8.5" fill="#fff" stroke="#8b1d1a" stroke-width="4"/>
+        <circle cx="100" cy="17" r="11" fill="#fff" stroke="#8b1d1a" stroke-width="4"/>
+      </svg>
     </div>
-    <p class="tagline">Technical Program &amp; Product Management · <b>AI-Native</b> Transformation &amp; Operations Leader</p>
-  </header>
+    <h2>Waddle Résumé</h2>
+    <p>A Player Card, an EPF mission log, a stamp book of achievements, and three puffles worth of skills.</p>
+    <span class="btn">Enter the island →</span>
+  </a>
 
-  <!-- ===== Hero: Player Card ===== -->
-  <section class="hero" id="top">
-    <div class="panel card">
-      <div class="panel-title">Player Card <span style="display:flex;gap:10px;align-items:center"><span class="member-badge">★ Member since 2016</span><span class="x" aria-hidden="true">✕</span></span></div>
-      <div class="panel-body">
-        <div class="stage">
-          <div class="bubble" id="bubble" aria-live="polite">Hi! I'm Bianca. Currently leading Meta's AI Transformation Taskforce, and relocating to Prague, CZ. Click me!</div>
+  <a class="choice pk" href="pokemon.html" aria-label="Open the Pokémon-style version of the résumé">
+    <span class="era">POKÉMON-STYLE RPG</span>
+    <div class="art"><canvas id="sprites" width="64" height="32" aria-hidden="true"></canvas></div>
+    <h2>Fire Résumé Version</h2>
+    <p>Walk a trainer and her husky to eight gyms. Every gym is a job, every badge an achievement.</p>
+    <span class="btn">Press START →</span>
+  </a>
+</main>
 
-          <svg class="penguin" id="penguin" viewBox="0 0 200 230" role="img" aria-label="Bianca's penguin avatar — click to wave" tabindex="0">
-            <!-- feet -->
-            <ellipse cx="76" cy="212" rx="28" ry="12" fill="#ff9d1a" stroke="#c96a00" stroke-width="4"/>
-            <ellipse cx="124" cy="212" rx="28" ry="12" fill="#ff9d1a" stroke="#c96a00" stroke-width="4"/>
-            <!-- left flipper -->
-            <ellipse class="body flipper-l" cx="40" cy="128" rx="16" ry="44" transform="rotate(22 40 128)" />
-            <!-- body -->
-            <path class="body" d="M100 30 C 150 30, 172 70, 172 130 C 172 185, 140 208, 100 208 C 60 208, 28 185, 28 130 C 28 70, 50 30, 100 30 Z"/>
-            <path class="body-line" d="M100 30 C 150 30, 172 70, 172 130 C 172 185, 140 208, 100 208 C 60 208, 28 185, 28 130 C 28 70, 50 30, 100 30 Z" fill="none" stroke-width="4" opacity=".6"/>
-            <!-- belly -->
-            <ellipse cx="100" cy="146" rx="46" ry="52" fill="#fff"/>
-            <!-- right flipper (waves) -->
-            <ellipse class="body flipper-r" cx="158" cy="128" rx="16" ry="44" transform="rotate(-22 158 128)" />
-            <!-- eyes -->
-            <ellipse cx="86" cy="92" rx="12" ry="15" fill="#fff"/>
-            <ellipse cx="114" cy="92" rx="12" ry="15" fill="#fff"/>
-            <circle cx="89" cy="95" r="5.5" fill="#1b1b1b"/>
-            <circle cx="111" cy="95" r="5.5" fill="#1b1b1b"/>
-            <circle cx="91" cy="93" r="1.8" fill="#fff"/>
-            <circle cx="113" cy="93" r="1.8" fill="#fff"/>
-            <!-- beak -->
-            <path d="M100 104 L 78 114 L 100 128 L 122 114 Z" fill="#ffb400" stroke="#d97a00" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M84 113 L 116 113" stroke="#d97a00" stroke-width="2"/>
-            <!-- beanie -->
-            <path d="M54 56 C 58 16, 142 16, 146 56 Z" fill="#e53935" stroke="#8b1d1a" stroke-width="4" stroke-linejoin="round"/>
-            <rect x="50" y="46" width="100" height="17" rx="8.5" fill="#fff" stroke="#8b1d1a" stroke-width="4"/>
-            <circle cx="100" cy="17" r="11" fill="#fff" stroke="#8b1d1a" stroke-width="4"/>
-          </svg>
-
-          <div class="swatches" role="group" aria-label="Change penguin color">
-            <button class="swatch" style="background:#ff8ecf" data-c="#ff8ecf" data-d="#c9569c" aria-label="Pink" aria-pressed="true"></button>
-            <button class="swatch" style="background:#3f95ff" data-c="#3f95ff" data-d="#1b5fc4" aria-label="Blue" aria-pressed="false"></button>
-            <button class="swatch" style="background:#ff5c4d" data-c="#ff5c4d" data-d="#b8281c" aria-label="Red" aria-pressed="false"></button>
-            <button class="swatch" style="background:#7ed957" data-c="#7ed957" data-d="#3f9a22" aria-label="Green" aria-pressed="false"></button>
-            <button class="swatch" style="background:#a86cff" data-c="#a86cff" data-d="#6a36c9" aria-label="Purple" aria-pressed="false"></button>
-            <button class="swatch" style="background:#5ed9d1" data-c="#5ed9d1" data-d="#1f9a92" aria-label="Aqua" aria-pressed="false"></button>
-            <button class="swatch" style="background:#2b2b2b" data-c="#2b2b2b" data-d="#000" aria-label="Black" aria-pressed="false"></button>
-          </div>
-        </div>
-
-        <h1>Bianca Pham</h1>
-        <p class="role">Senior AI Technical Program Manager · Meta</p>
-        <p class="loc">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b4f9c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-7.4 7-12a7 7 0 1 0-14 0c0 4.6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          <span>Relocating from New York, US → <b>Prague, CZ</b> for family. Open to EU roles; can work remote EST as a US Digital Nomad.</span>
-        </p>
-        <div class="actions">
-          <a class="btn" href="mailto:biancanpham@gmail.com">✉ Send Message</a>
-          <a class="btn blue" href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">➕ Add Buddy</a>
-          <a class="btn" href="https://trainedonvibes.com" target="_blank" rel="noopener">🏠 Visit Igloo</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <h2 class="headline">10+ years building from <em>nothing</em>, shipping out of <em>ambiguity.</em></h2>
-      <p class="lede">TPM and product leader across big tech, early-stage startups, and high-growth scale-ups. Currently transitioning Meta's Forward Deployed Engineering org to AI-native operations, habits, and skills.</p>
-      <div class="coins" aria-label="Career highlights">
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>$300M</b><span>ARR driven in H2 2025 across 20+ projects</span></div></div>
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>7×</b><span>inbound insight volume from AI tool I shipped</span></div></div>
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>1M+</b><span>mint transactions on a 0→1 product</span></div></div>
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>600K</b><span>new users onboarded to a blockchain ecosystem</span></div></div>
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>50%</b><span>less time on reporting via agent-run automations</span></div></div>
-        <div class="coin-tile"><svg width="34" height="34"><use href="#coin"/></svg><div><b>Top 20%</b><span>"Outstanding" rating at Meta, year one</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Newspaper: Summary ===== -->
-  <section class="section reveal" id="news">
-    <div class="section-head">
-      <h2 class="sign">The Penguin Times <small>Summary · Issue #2026</small></h2>
-    </div>
-    <article class="paper">
-      <div class="masthead">
-        <h2>The Penguin Times</h2>
-        <small>Est. 2016 · Big Tech · Startups · Scale-ups</small>
-      </div>
-      <h3>Local Penguin Leads Meta's AI Transformation Taskforce, Seeks Next Adventure in the EU</h3>
-      <div class="cols">
-        <p>Technical Program Management Lead with 10+ years spanning both TPM and product management across big tech, early-stage startups, and high-growth scale-ups. Reputation for building from nothing, operating out of ambiguity, executing in fast-paced environments, and creating successful outcomes in short timeframes.</p>
-        <p>Currently leading Meta's AI Transformation Taskforce and Market AI Acceleration program within the Forward Deployed Engineering org, with the key objective of transitioning the org to AI-native operations, habits, and skills.</p>
-        <p><strong>Seeking:</strong> New opportunities in the EU, as I'm relocating to Prague, CZ for family. In my next role I want to apply my unique experiences to identify opportunities to transform operations and/or re-think strategy with AI systems thinking, in order to accelerate execution toward your goals.</p>
-        <span class="stamp-seeking">NOW ACCEPTING BUDDY REQUESTS</span>
-      </div>
-    </article>
-  </section>
-
-  <!-- ===== Missions: Experience ===== -->
-  <section class="section reveal" id="missions">
-    <div class="section-head">
-      <h2 class="sign">EPF Mission Log <small>Experience</small></h2>
-      <p>Every job, filed as a completed Elite Penguin Force mission. Most recent first.</p>
-    </div>
-    <div class="missions">
-
-      <article class="mission">
-        <div class="badge"><b>09</b>current</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Senior AI Technical Program Manager</h3><p class="org">Meta · Forward Deployed Engineering Team</p></div></div>
-          <div class="meta"><span class="chip room">EPF Command Room</span><span class="chip">07/2025 – Present</span><span class="chip">New York, US</span></div>
-          <ul>
-            <li>Elected to the AI Native Taskforce to transform the Forward Deployed Engineering org into an AI-native operating org. Led AI upskilling across the TPM organization and re-designed FDE program operations on AI-native infrastructure: AI-maintained team knowledge bases and agent-run automations for project tracking and status reporting, <mark>cutting reporting time by 50%</mark> and accelerating roadmapping cycles <mark>from every 6 months to monthly</mark>.</li>
-            <li>Tapped to launch Market AI Acceleration, equipping FDEs with AI-enabled tools to accelerate new market opportunities. Built and shipped the flagship AI-powered market insights tool (Claude Code, Manus, internal MCPs) converting client-interaction insights into structured, sized product opportunities for PMs. Result: <mark>7× inbound insight volume</mark>, insight quality <mark>32% → 90%</mark>, potential TAM <mark>$74B → $174B</mark>. Now adopted org-wide by FDE and expanding to Sales.</li>
-            <li>Managed delivery of the Retail Advertiser Solution portfolio across 20+ cross-functional projects, driving <mark>+$300M ARR in H2 2025</mark> via new Omnichannel, Retail Media Network, and CPG Brand advertiser solutions.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>08</b>0 → 1</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Co-Founder &amp; CPO</h3><p class="org">Stealth AI Startup · AI Content Operating System</p></div></div>
-          <div class="meta"><span class="chip room">Igloo Under Construction</span><span class="chip">07/2023 – 07/2025</span><span class="chip">California, US</span></div>
-          <ul>
-            <li>Owned product end-to-end: market research, <mark>50+ user interviews</mark> to validate prototypes, early-stage pricing model, and positioning, growing the pre-launch waitlist to <mark>1,000+ users</mark>.</li>
-            <li>Taught myself Claude Code, Cursor, and Figma and shipped production code alongside my technical co-founder (React Native, Firebase, Vercel, AI APIs), going from non-technical to contributing directly to the full-stack build.</li>
-            <li>Led fundraising and investor communications: narrative, deck, model, and pitches. Resulted in interest from South Park Commons and Antler VC.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>07</b>web3</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Principal Product Manager</h3><p class="org">HyperMint (acquired by MoonPay) · Web3 Enterprise Team</p></div></div>
-          <div class="meta"><span class="chip room">The Mine</span><span class="chip">08/2022 – 07/2023</span><span class="chip">Lisbon, Portugal</span></div>
-          <ul>
-            <li>Defined the product vision and roadmap for HyperMint, an enterprise-grade minting platform enabling non-Web3 brands to seamlessly use blockchain utility for customer engagement.</li>
-            <li>Drove measurable success as a 0 → 1 product: <mark>$900K in primary sales</mark>, <mark>Top 5 Minters on Polygon</mark>, and <mark>1M+ mint transactions</mark> in the first year.</li>
-            <li>Managed strategic enterprise partnerships, guiding onboarding, troubleshooting, and feedback, leading to adoption by <mark>20+ brands</mark> including Alo Yoga, Nike, and Universal Studios.</li>
-            <li>Defined the vision and led development of MoonPay's Web3 dashboard, bundling HyperMint, NFT Checkout, and Crypto On/Off Ramps into an all-in-one launchpad for global enterprises.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>06</b>webby</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Client Group Product Manager</h3><p class="org">Palm NFT Studio (acquired by Candy Digital)</p></div></div>
-          <div class="meta"><span class="chip room">The Stage</span><span class="chip">01/2022 – 08/2022</span><span class="chip">California, US</span></div>
-          <ul>
-            <li>Developed the product vision and feature roadmap for the DC Bat Cowl NFT Community, integrating fan base, utility, and storytelling, earning a <mark>Webby Award nomination</mark> for Best Use of Web3 Technology.</li>
-            <li>Directed product strategy, execution, and GTM for DC Comics' first NFT marketplace, growing the Palm Blockchain ecosystem by <mark>~600,000 new users</mark>. Recognized by Ad Age as a Top 5 Metaverse Activation.</li>
-            <li>Managed enterprise customers (Microsoft Xbox, Universal Music Group UK, Archie Comics) to launch a customized, white-labeled NFT marketplace, creating new IP-ownership revenue streams with gamification and engagement features.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>05</b>director</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Director of Product Management</h3><p class="org">Nike · Tech Innovation Team (restructured after RTFKT acquisition)</p></div></div>
-          <div class="meta"><span class="chip room">Sport Shop</span><span class="chip">02/2021 – 07/2021</span><span class="chip">Oregon, US</span></div>
-          <ul>
-            <li>First Director of Product recruited to build Nike's emerging-technology innovation lab, shaping the product operating model and forming Nike's first technology product strategy across AI/ML, Metaverse, and Crypto/NFTs.</li>
-            <li>Led the 0 → 1 development of Nike's patented Cryptokicks technology, delivering the first proof-of-concept and beta for Nike's first digital sneaker marketplace, the foundational work now known as <mark>.SWOOSH</mark>.</li>
-            <li>Founding member of the Nike Metaverse Studio, defining the vision to position Nike as a category leader in virtual retail and next-generation social commerce.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>04</b>launch</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Senior Engineering PM</h3><p class="org">Apple · Apple Pay Team</p></div></div>
-          <div class="meta"><span class="chip room">Gift Shop</span><span class="chip">12/2019 – 02/2021</span><span class="chip">Cupertino, US</span></div>
-          <ul>
-            <li>Created Apple Pay's official beta testing launch-readiness program, enabling early feature validation, surfacing launch blockers and edge cases, and identifying new product opportunities. Established with the launch of <mark>Apple Card</mark>; now runs for every release.</li>
-            <li>Drove cross-functional execution across Product, Engineering, UX, Legal, Ops, Marketing/PR, DevOps, and external partners (Disney, LA/DC/NY Metro, Japan PASMO) for smooth launches of major Apple Pay products.</li>
-            <li>Reported weekly to the Head of Apple Pay with synthesized user insights, trends, and critical pre-launch issues to manage external risk and PR considerations.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>03</b>promoted</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Engineering PM → Senior Engineering PM</h3><p class="org">Apple · Applied Machine Learning Team</p></div></div>
-          <div class="meta"><span class="chip room">The Lighthouse Beacon</span><span class="chip">10/2017 – 12/2019</span><span class="chip">Sunnyvale, US</span></div>
-          <ul>
-            <li>Managed Apple's Operations, Logistics, and Supply Chain ML program portfolio and strategy, delivering use cases such as signature-required delivery prediction, recommended package sizing, and delivery-quote modeling.</li>
-            <li>Drove execution of <mark>GDPR-compliant</mark> data engineering solutions across Apple's ML platforms (Hadoop, Cassandra), enabling fast user-data access and deletion, resulting in executive recognition.</li>
-            <li>Led the ML Infrastructure PM team with Data Science: big-data batch pipelines, real-time querying, Spark-based data conversion, enhanced notebooks, and support for Random Forest, TensorFlow, and XGBoost models.</li>
-          </ul>
-        </div></div>
-      </article>
-
-      <article class="mission">
-        <div class="badge"><b>02</b>first job</div>
-        <div class="panel"><div class="panel-body">
-          <div class="m-head"><div><h3>Technology Analyst</h3><p class="org">JPMorgan Chase &amp; Co. · Big Data Analytics Team</p></div></div>
-          <div class="meta"><span class="chip room">Coin Vault</span><span class="chip">06/2016 – 09/2017</span><span class="chip">New York, US</span></div>
-          <ul>
-            <li>Directed end-to-end delivery of big-data initiatives across legal, product, data science, DevOps, data architecture, and engineering teams.</li>
-            <li>Delivered data solutions that cleansed and enriched merchant transaction data, powering personalized, machine-learned insights in the Chase Mobile App and improving next-best-action recommendations across <mark>millions of users</mark>.</li>
-          </ul>
-        </div></div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ===== Stamp Book: Achievements ===== -->
-  <section class="section reveal" id="stamps">
-    <div class="section-head">
-      <h2 class="sign">Stamp Book <small>Key Achievements</small></h2>
-      <p>Hover a stamp to flip it. Each one was earned the hard way.</p>
-    </div>
-    <div class="panel stampbook">
-      <div class="panel-title">Stamps collected: 6 / 6 <span class="x" aria-hidden="true">✕</span></div>
-      <div class="panel-body">
-        <div class="stamps">
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#fff"/></svg></div>
-            <h4>Outstanding Achievement</h4><div class="org">Meta · Top 20%</div>
-            <p>1 of 2 within the Forward Deployed Engineering org selected by leadership for an "Outstanding" rating (top 20% of Meta employees), in my first year.</p>
-          </div>
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" fill="#fff"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5" fill="#5a3210"/></svg></div>
-            <h4>Achievement Award</h4><div class="org">Apple</div>
-            <p>Awarded by senior leadership for excellent execution and management of GDPR on behalf of the Applied Machine Learning team.</p>
-          </div>
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8" /><path d="M14 7h7v7" /><path d="M3 21h18" fill="#fff"/></svg></div>
-            <h4>Web3 GTM for Key Enterprises</h4><div class="org">MoonPay</div>
-            <p>Activated and closed 5+ large enterprise clients into Web3, leading to top headlines: Nike SWOOSH, Universal's NFT Scavenger Hunt, Alo Yoga's Aspen Collection, FOX's Masked Singer, FaZe Clan's Forever Cartridge, and more.</p>
-          </div>
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><path d="M8 21h8M12 17v4M6 3h12v5a6 6 0 0 1-12 0z" fill="#fff"/><path d="M6 5H3v2a3 3 0 0 0 3 3M18 5h3v2a3 3 0 0 1-3 3"/></svg></div>
-            <h4>Webby Nomination</h4><div class="org">Palm NFT Studio</div>
-            <p>Webby nomination for Best Use of Web3 Technology for the DC Comics Marketplace.</p>
-          </div>
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="8" r="5" fill="#fff"/><path d="M4 21a8 8 0 0 1 16 0z" fill="#fff"/></svg></div>
-            <h4>Leadership Circles</h4><div class="org">Nike · Top 10–15%</div>
-            <p>Within 3 months, elected by leadership as a protégé within Nike leadership and rated "Highly Successful" for delivering high-impact emerging-tech product innovations.</p>
-          </div>
-          <div class="stamp">
-            <div class="disc"><div class="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2" stroke-linejoin="round"><circle cx="8" cy="12" r="4.5" fill="#fff"/><path d="M12.5 12H21M18 12v3M15 12v2.5"/></svg></div>
-            <h4>Key of Recognition</h4><div class="org">JPMorgan</div>
-            <p>Received 1 of 5 Keys of Recognition for a key contribution to an excellent consumer experience of the product.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Pet Shop: Skills ===== -->
-  <section class="section reveal" id="puffles">
-    <div class="section-head">
-      <h2 class="sign">Pet Shop <small>Skills · adopt a puffle</small></h2>
-      <p>Three puffles, each with a specialty. They've all been fed.</p>
-    </div>
-    <div class="puffles">
-      <div class="panel puffle-card" style="--c:#3f95ff">
-        <div class="panel-body">
-          <svg class="puffle" aria-hidden="true"><use href="#puffle"/></svg>
-          <h3>Blue Puffle</h3><div class="trait">Technical Program Management · loyal &amp; organized</div>
-          <div class="tags">
-            <span class="tag">Software Development Lifecycle</span><span class="tag">Roadmap Planning</span><span class="tag">Agile</span><span class="tag">Cross-Functional Team Mgmt</span><span class="tag">Stakeholder Mgmt</span><span class="tag">Risk Management</span><span class="tag">Status Reporting</span><span class="tag">Release Management</span><span class="tag">Process Optimization</span><span class="tag">Trello · Asana · Linear</span>
-          </div>
-        </div>
-      </div>
-      <div class="panel puffle-card" style="--c:#ff5c4d">
-        <div class="panel-body">
-          <svg class="puffle" aria-hidden="true"><use href="#puffle"/></svg>
-          <h3>Red Puffle</h3><div class="trait">AI Ops &amp; Developer Productivity · adventurous</div>
-          <div class="tags">
-            <span class="tag hot">AI-Native Program Operations</span><span class="tag hot">Agent-run Workflows</span><span class="tag">AI Tool Evaluation &amp; Adoption</span><span class="tag">AI Transformation</span><span class="tag">Change Mgmt &amp; Enablement</span><span class="tag hot">Claude Code</span><span class="tag">Cursor</span><span class="tag">Manus</span><span class="tag">Vercel</span><span class="tag">Convex</span><span class="tag">Supabase</span><span class="tag">GitHub</span><span class="tag">Claude · ChatGPT · Gemini · Perplexity</span>
-          </div>
-        </div>
-      </div>
-      <div class="panel puffle-card" style="--c:#a86cff">
-        <div class="panel-body">
-          <svg class="puffle" aria-hidden="true"><use href="#puffle"/></svg>
-          <h3>Purple Puffle</h3><div class="trait">Product &amp; Operations · picky &amp; strategic</div>
-          <div class="tags">
-            <span class="tag">Competitive Analysis</span><span class="tag">Product Strategy</span><span class="tag">Product Roadmaps</span><span class="tag">PRDs</span><span class="tag">User Journeys &amp; Stories</span><span class="tag">OKRs &amp; Metrics</span><span class="tag">Go-To-Market</span><span class="tag">Client Management</span><span class="tag">Onboarding Enterprises</span><span class="tag">Executive Storytelling</span><span class="tag">Prioritized Decision-Making</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Academy + Igloo ===== -->
-  <section class="section reveal" id="academy">
-    <div class="section-head">
-      <h2 class="sign">Penguin Academy <small>Education · Side Projects</small></h2>
-    </div>
-    <div class="two">
-      <div class="diploma">
-        <h3>BSE · Networked &amp; Social Systems Engineering</h3>
-        <p class="school">Computer Science + Game Theory + Graph Theory · University of Pennsylvania, School of Engineering &amp; Applied Science (SEAS)</p>
-        <ul>
-          <li>1 of 11 accepted into the NETS engineering degree</li>
-          <li>Graduated Magna Cum Laude (top 20% of class)</li>
-          <li>Teacher's Assistant for Engineering Entrepreneurship</li>
-        </ul>
-        <div class="minor">
-          <h4>Minor · Consumer Psychology &amp; Marketing</h4>
-          <p class="school" style="margin:0">University of Pennsylvania · The Wharton School</p>
-        </div>
-        <div class="seal" aria-hidden="true">MAGNA<br>CUM<br>LAUDE</div>
-      </div>
-
-      <div class="panel igloo-card">
-        <div class="panel-body">
-          <svg viewBox="0 0 140 110" aria-hidden="true">
-            <ellipse cx="70" cy="100" rx="68" ry="8" fill="#cfe6f7"/>
-            <path d="M10 92 A60 60 0 0 1 130 92 Z" fill="#eaf6ff" stroke="#1e4f8f" stroke-width="4"/>
-            <path d="M22 92 A48 48 0 0 1 118 92" fill="none" stroke="#c4e1f5" stroke-width="3"/>
-            <path d="M18 70 H122 M30 50 H110 M46 34 H94" stroke="#c4e1f5" stroke-width="3"/>
-            <path d="M48 92 V70 A22 22 0 0 1 92 70 V92 Z" fill="#1b4f9c" stroke="#0f3466" stroke-width="4"/>
-            <path d="M58 92 V72 A12 12 0 0 1 82 72 V92 Z" fill="#0f3466"/>
-            <rect x="96" y="20" width="8" height="26" fill="#ffc72c" stroke="#5a3210" stroke-width="3"/>
-            <rect x="100" y="8" width="26" height="16" fill="#e53935" stroke="#8b1d1a" stroke-width="3"/>
-          </svg>
-          <div>
-            <h3>Trained on Vibes</h3>
-            <p>Teaching vibe coding and AI concepts in a simplified way for a non-technical audience, while building mini apps weekly.</p>
-            <a class="btn" href="https://trainedonvibes.com" target="_blank" rel="noopener">Enter Igloo →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <span class="waddle">Waddle on!</span>
-    Built with far too much affection for a game from 2005. Fan-made homage, not affiliated with Club Penguin or Disney.
-    <br><a href="mailto:biancanpham@gmail.com">biancanpham@gmail.com</a> · <a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">linkedin.com/in/biancapham</a>
-  </footer>
-</div>
-
-<!-- ===== Bottom toolbar (nav + chat) ===== -->
-<nav class="toolbar" aria-label="Site navigation">
-  <a class="tool" href="#top" data-label="Player Card"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
-  <a class="tool optional" href="#news" data-label="Newspaper"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h5M7 13h10M7 17h10M15 9h2"/></svg></a>
-  <a class="tool" href="#missions" data-label="Missions"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></a>
-  <a class="tool" href="#stamps" data-label="Stamp Book"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></a>
-  <a class="tool" href="#puffles" data-label="Puffles"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><circle cx="9" cy="12" r="1.2" fill="#5a3210"/><circle cx="15" cy="12" r="1.2" fill="#5a3210"/><path d="M10 16q2 1.5 4 0M11 5l-1-3M13 5l1-3"/></svg></a>
-  <a class="tool optional" href="#academy" data-label="Igloo"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linejoin="round"><path d="M3 20a9 9 0 0 1 18 0z"/><path d="M9 20v-5a3 3 0 0 1 6 0v5"/></svg></a>
-  <form id="chat" autocomplete="off">
-    <input id="say" type="text" maxlength="90" placeholder="Say something to Bianca's penguin…" aria-label="Say something to the penguin">
-    <button class="send" type="submit">Say</button>
-  </form>
-  <a class="tool" href="mailto:biancanpham@gmail.com" data-label="Email me"><svg viewBox="0 0 24 24" fill="none" stroke="#5a3210" stroke-width="2.4" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
-</nav>
+<footer>
+  <span class="alt">Prefer the original green Game Boy look? <a href="pokemon-gameboy.html">Play that version.</a></span><br>
+  <a href="mailto:biancanpham@gmail.com">biancanpham@gmail.com</a> · <a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">linkedin.com/in/biancapham</a><br>
+  Fan-made homages. Not affiliated with Disney, Nintendo, Game Freak, or The Pokémon Company. All art drawn from scratch.
+</footer>
 
 <script>
-  // Snow
-  (function () {
-    var host = document.getElementById('snow');
-    var n = window.matchMedia('(max-width: 600px)').matches ? 22 : 48;
-    for (var i = 0; i < n; i++) {
-      var f = document.createElement('div');
-      f.className = 'flake';
-      var s = 4 + Math.random() * 7;
-      f.style.width = f.style.height = s + 'px';
-      f.style.left = Math.random() * 100 + 'vw';
-      f.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
-      f.style.animationDuration = (9 + Math.random() * 12) + 's';
-      f.style.animationDelay = (-Math.random() * 20) + 's';
-      host.appendChild(f);
+(function () {
+  // Trainer + husky sprites (same pixel data as the game), drawn side by side.
+  var TRAINER = ["......0000......", "....00hhhh00....", "...0hhhhhhhh0...", "..0hhhhhhhhhh0..", "..0hhhhhhhhss0..", ".0hhsssssssshh0.", ".0hhss0ss0sshh0.", ".0hhsssssssshh0.", ".0lh0ssssss0hl0.", ".0lh0ttjttt0hl0.", "..0s0tttttt0s0..", "..0s0tttttt0s0..", "..000pppppp000..", "....0pp00pp0....", "....0pp00pp0....", "....000..000...."];
+  var HUSKY = ["................", "..00........00..", ".0gg0......0gg0.", ".0ggg0....0ggg0.", ".0gggg0000gggg0.", ".0gggggggggggg0.", "..0gwwbggbwwg0..", "..0gwwwwwwwwg0..", "..0wwww00wwww0..", "...0wwwwwwww0...", "...0wwwppwww0...", "..0gggwwwwggg0..", "..0ggggwwgggg0..", "..0gg0wwww0gg0..", "..0w00....00w0..", "..00........00.."];
+  var PT = { '0': '#1c1c2c', h: '#3a2418', l: '#b8875a', s: '#f6d2b0', t: '#f6f6f6', p: '#4a6aa8', j: '#86b89c' };
+  var PH = { '0': '#08080e', g: '#30303e', w: '#ffffff', b: '#5ab0ff', p: '#f08098' };
+  var c = document.getElementById('sprites'), x = c.getContext('2d');
+  function px(rows, ox, oy, pal, scale) {
+    for (var r = 0; r < rows.length; r++) for (var i = 0; i < rows[r].length; i++) {
+      var ch = rows[r][i]; if (ch === '.') continue;
+      x.fillStyle = pal[ch]; x.fillRect(ox + i * scale, oy + r * scale, scale, scale);
     }
-  })();
-
-  // Penguin color swatches
-  var root = document.documentElement;
-  document.querySelectorAll('.swatch').forEach(function (b) {
-    b.addEventListener('click', function () {
-      root.style.setProperty('--penguin', b.dataset.c);
-      root.style.setProperty('--penguin-dark', b.dataset.d);
-      document.querySelectorAll('.swatch').forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
-      say(b.getAttribute('aria-label') + ' looks great on me. Thanks!');
-    });
-  });
-
-  // Penguin wave + speech
-  var penguin = document.getElementById('penguin');
-  var bubble = document.getElementById('bubble');
-  var defaultLine = bubble.textContent;
-  var lines = [
-    "Fun fact: I went from non-technical to shipping production React Native code. Vibes + Claude Code.",
-    "I've launched things at Apple, Nike, Meta and a startup of my own. Ambiguity is my favorite room.",
-    "Relocating to Prague! Open to EU roles, and happy to work remote on EST hours.",
-    "Ask me about turning a 6-month roadmap cycle into a monthly one.",
-    "Waddle on! Scroll down for the mission log."
-  ];
-  var li = 0, timer;
-  function wave() {
-    penguin.classList.remove('wave'); void penguin.offsetWidth; penguin.classList.add('wave');
   }
-  function say(text) {
-    bubble.textContent = text;
-    clearTimeout(timer);
-    timer = setTimeout(function () { bubble.textContent = defaultLine; }, 6000);
+  px(TRAINER, 8, 8, PT, 1); px(HUSKY, 40, 8, PH, 1);
+  // gentle snow on the penguin side
+  var cp = document.querySelector('.cp');
+  for (var i = 0; i < 26; i++) {
+    var f = document.createElement('i'); f.className = 'flake';
+    f.style.left = Math.random() * 100 + '%'; f.style.animationDuration = (8 + Math.random() * 10) + 's'; f.style.animationDelay = (-Math.random() * 18) + 's';
+    f.style.width = f.style.height = (4 + Math.random() * 5) + 'px';
+    cp.appendChild(f);
   }
-  function poke() { wave(); say(lines[li++ % lines.length]); }
-  penguin.addEventListener('click', poke);
-  penguin.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); } });
-
-  // Chat bar → penguin repeats it
-  document.getElementById('chat').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var input = document.getElementById('say');
-    var t = input.value.trim();
-    if (!t) return;
-    input.value = '';
-    wave();
-    var replies = ['"' + t + '" — wow, you said it, not me!', 'Did you just say "' + t + '"? Bold. I like it.', '"' + t + '"… noted in the mission log.'];
-    say(replies[Math.floor(Math.random() * replies.length)]);
-    document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  // Scroll reveal
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
-  }
+})();
 </script>
 </body>
 </html>
