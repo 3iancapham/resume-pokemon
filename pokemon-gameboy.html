@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bianca Pham · Trainer Card</title>
+<meta name="description" content="Bianca Pham's résumé as a Game Boy-style RPG. Walk to eight gyms, each one a job, and collect the badges.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --g0: #0f380f; --g1: #306230; --g2: #8bac0f; --g3: #9bbc0f;
+    --shell: #c9c4bd; --shell-dark: #a39e96; --shell-light: #e6e2dc;
+    --bezel: #3a3a44; --bezel-2: #23232b;
+    --accent: #7b3f8f;
+    --pixel: "Press Start 2P", monospace;
+    --term: "VT323", "Courier New", monospace;
+    --page: #e9e4d8;
+    --ink: #1c1c1c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page);
+    background-image: radial-gradient(#d9d3c4 1px, transparent 1px);
+    background-size: 14px 14px;
+    color: var(--ink); font-family: var(--term); font-size: 20px; line-height: 1.3;
+    -webkit-font-smoothing: none;
+  }
+  a { color: var(--accent); }
+  .wrap { width: min(1080px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 60px; }
+  header { text-align: center; margin-bottom: 22px; }
+  header h1 { font-family: var(--pixel); font-size: clamp(14px, 3vw, 24px); margin: 0 0 12px; letter-spacing: 1px; color: var(--g0); text-shadow: 3px 3px 0 var(--g2); }
+  header p { margin: 0; font-size: 22px; color: #3b3b3b; }
+  header kbd { font-family: var(--pixel); font-size: 10px; background: #fff; border: 2px solid #1c1c1c; border-radius: 4px; padding: 3px 5px; box-shadow: 2px 2px 0 #1c1c1c; margin: 0 2px; display: inline-block; }
+
+  .stage { display: grid; grid-template-columns: 1fr; justify-items: center; gap: 24px; }
+
+  /* ---------- Game Boy shell ---------- */
+  .gb {
+    width: min(560px, 100%); background: linear-gradient(160deg, var(--shell-light), var(--shell) 40%, var(--shell-dark));
+    border-radius: 18px 18px 70px 18px; padding: 22px 26px 34px; position: relative;
+    box-shadow: inset 4px 4px 0 rgba(255,255,255,.55), inset -6px -6px 0 rgba(0,0,0,.18), 0 18px 0 -6px #8f8a83, 0 26px 30px rgba(0,0,0,.28);
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+  .gb::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 3px; background: linear-gradient(90deg, transparent 4%, #8f8a83 4% 25%, transparent 25% 30%, #8f8a83 30% 70%, transparent 70% 75%, #8f8a83 75% 96%, transparent 96%); opacity: .6; }
+  .bezel {
+    background: linear-gradient(180deg, var(--bezel), var(--bezel-2)); border-radius: 12px 12px 42px 12px; padding: 24px 40px 26px;
+    position: relative; box-shadow: inset 0 0 0 2px #15151a, 0 3px 0 rgba(255,255,255,.5);
+  }
+  .bezel::before { content: ""; position: absolute; left: 22px; right: 22px; top: 10px; height: 1px; background: linear-gradient(90deg, #7d3c98, #4a70c9); box-shadow: 0 3px 0 #4a70c9; }
+  .bezel .label { position: absolute; top: 14px; left: 0; right: 0; text-align: center; font-family: var(--pixel); font-size: 6px; letter-spacing: 1px; color: #9c9caa; }
+  .bezel .power { position: absolute; left: 10px; top: 40%; display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--pixel); font-size: 5px; color: #9c9caa; writing-mode: vertical-rl; }
+  .bezel .power span { transform: rotate(180deg); }
+  .bezel .power i { width: 8px; height: 8px; border-radius: 50%; background: #ff2b2b; box-shadow: 0 0 8px #ff2b2b; }
+  .screen { display: block; width: 100%; aspect-ratio: 160 / 144; image-rendering: pixelated; image-rendering: crisp-edges; background: var(--g3); outline: 3px solid #0e2a0e; }
+  .brand { display: flex; align-items: baseline; gap: 10px; margin: 16px 0 0 6px; }
+  .brand b { font-family: var(--pixel); font-size: 10px; color: #3d3a52; letter-spacing: 1px; }
+  .brand i { font-style: italic; font-weight: 700; font-family: "Arial Black", Impact, sans-serif; color: #4a4470; font-size: 18px; letter-spacing: -1px; }
+  .brand i span { color: #7b3f8f; }
+
+  .controls { display: grid; grid-template-columns: 1fr 1fr; align-items: center; margin-top: 18px; }
+  .dpad { position: relative; width: 120px; height: 120px; margin-left: 6px; }
+  .dpad button { position: absolute; width: 40px; height: 40px; background: #2b2b2f; border: none; box-shadow: inset 0 -4px 0 #111, inset 0 2px 0 #4a4a52; cursor: pointer; }
+  .dpad button:active, .dpad button.on { box-shadow: inset 0 -1px 0 #111; transform: translateY(2px); }
+  .dpad .up { left: 40px; top: 0; border-radius: 6px 6px 0 0; }
+  .dpad .down { left: 40px; bottom: 0; border-radius: 0 0 6px 6px; }
+  .dpad .left { left: 0; top: 40px; border-radius: 6px 0 0 6px; }
+  .dpad .right { right: 0; top: 40px; border-radius: 0 6px 6px 0; }
+  .dpad .mid { position: absolute; left: 40px; top: 40px; width: 40px; height: 40px; background: #2b2b2f; }
+  .dpad .mid::after { content: ""; position: absolute; inset: 12px; border-radius: 50%; background: radial-gradient(#1a1a1e, #2b2b2f); }
+  .ab { display: flex; gap: 22px; justify-content: flex-end; transform: rotate(-22deg); margin-right: 6px; }
+  .ab button { width: 58px; height: 58px; border-radius: 50%; border: none; background: radial-gradient(circle at 40% 35%, #b45aa0, #7b2f6f 70%); color: #3a1235; font-family: var(--pixel); font-size: 12px; box-shadow: inset 0 -5px 0 #4d1c45, 0 4px 0 #4d1c45; cursor: pointer; }
+  .ab button:active, .ab button.on { box-shadow: inset 0 -1px 0 #4d1c45; transform: translateY(3px); }
+  .ab label { display: block; text-align: center; font-family: var(--pixel); font-size: 9px; color: #4a4470; margin-top: 8px; }
+  .ss { display: flex; justify-content: center; gap: 26px; margin-top: 22px; transform: rotate(-22deg); }
+  .ss button { width: 52px; height: 14px; border-radius: 10px; border: none; background: #5b5866; box-shadow: inset 0 -3px 0 #2d2b33, 0 2px 0 #2d2b33; cursor: pointer; }
+  .ss button:active, .ss button.on { transform: translateY(2px); box-shadow: inset 0 -1px 0 #2d2b33; }
+  .ss label { display: block; font-family: var(--pixel); font-size: 7px; color: #4a4470; text-align: center; margin-top: 8px; }
+  .speaker { position: absolute; right: 34px; bottom: 40px; width: 74px; height: 74px; transform: rotate(-22deg); background: repeating-linear-gradient(90deg, #8f8a83 0 6px, transparent 6px 14px); border-radius: 8px; opacity: .8; }
+  .sound { position: absolute; left: 26px; top: -10px; font-family: var(--pixel); font-size: 8px; background: #2b2b2f; color: #cfd; border: 0; padding: 6px 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 3px 0 #111; }
+
+  /* ---------- Guide ---------- */
+  .guide { width: min(860px, 100%); }
+  .guide h2 { font-family: var(--pixel); font-size: 14px; color: var(--g0); margin: 40px 0 14px; text-shadow: 2px 2px 0 var(--g2); }
+  .box { background: var(--g3); border: 4px solid var(--g0); box-shadow: inset 0 0 0 3px var(--g3), inset 0 0 0 5px var(--g0), 6px 6px 0 var(--g1); padding: 18px 20px; margin-bottom: 18px; color: var(--g0); }
+  .box h3 { font-family: var(--pixel); font-size: 12px; margin: 0 0 4px; }
+  .box .sub { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .box ul { margin: 0; padding-left: 22px; }
+  .box li { margin: 6px 0; }
+  .box li::marker { content: "▶ "; font-family: var(--pixel); font-size: 10px; }
+  .badge-line { font-family: var(--pixel); font-size: 9px; margin-top: 10px; background: var(--g0); color: var(--g3); display: inline-block; padding: 6px 8px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+  .tags span { display: inline-block; border: 2px solid var(--g0); padding: 2px 8px; margin: 3px 4px 3px 0; font-size: 17px; text-transform: uppercase; }
+  .contact { text-align: center; font-family: var(--pixel); font-size: 10px; line-height: 2; }
+  footer { text-align: center; margin-top: 40px; font-size: 18px; color: #555; }
+  @media (max-width: 620px) {
+    .gb { padding: 16px 14px 26px; border-radius: 14px 14px 50px 14px; }
+    .bezel { padding: 22px 16px 20px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .dpad { width: 105px; height: 105px; } .dpad button, .dpad .mid { width: 35px; height: 35px; } .dpad .up, .dpad .down { left: 35px; } .dpad .left, .dpad .right { top: 35px; } .dpad .mid { left: 35px; top: 35px; }
+    .ab button { width: 50px; height: 50px; }
+    .speaker { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>BIANCA PHAM · VERSION RED</h1>
+    <p>A résumé you walk through. Visit all 8 GYMS to collect the badges. <br><kbd>↑↓←→</kbd> walk · <kbd>Z</kbd>/<kbd>Space</kbd> A · <kbd>X</kbd> B · <kbd>Enter</kbd> Start menu</p>
+  </header>
+
+  <div class="stage">
+    <div class="gb" id="gb">
+      <button class="sound" id="sound" type="button" aria-pressed="false">SOUND: OFF</button>
+      <div class="bezel">
+        <div class="label">DOT MATRIX WITH STEREO SOUND</div>
+        <div class="power"><i></i><span>BATTERY</span></div>
+        <canvas class="screen" id="screen" width="160" height="144" aria-label="Game screen: Bianca's résumé RPG" role="img" tabindex="0"></canvas>
+      </div>
+      <div class="brand"><b>Nintendont</b><i>GAME BOY<span>.</span></i></div>
+      <div class="controls">
+        <div class="dpad" aria-label="D-pad">
+          <button class="up" data-key="up" aria-label="Up"></button>
+          <button class="left" data-key="left" aria-label="Left"></button>
+          <div class="mid"></div>
+          <button class="right" data-key="right" aria-label="Right"></button>
+          <button class="down" data-key="down" aria-label="Down"></button>
+        </div>
+        <div>
+          <div class="ab">
+            <div><button data-key="b" aria-label="B">B</button><label>B</label></div>
+            <div><button data-key="a" aria-label="A">A</button><label>A</label></div>
+          </div>
+        </div>
+      </div>
+      <div class="ss">
+        <div><button data-key="select" aria-label="Select"></button><label>SELECT</label></div>
+        <div><button data-key="start" aria-label="Start"></button><label>START</label></div>
+      </div>
+      <div class="speaker"></div>
+    </div>
+
+    <!-- ---------- Text walkthrough / strategy guide ---------- -->
+    <section class="guide" id="guide">
+      <h2>STRATEGY GUIDE (TEXT VERSION)</h2>
+      <div class="box">
+        <h3>TRAINER: BIANCA PHAM</h3>
+        <div class="sub">Technical Program &amp; Product Management · AI-Native Transformation &amp; Operations Leader</div>
+        <p>Technical Program Management Lead with 10+ years spanning both TPM and product management across big tech, early-stage startups, and high-growth scale-ups. Reputation for building from nothing, operating out of ambiguity, executing in fast-paced environments, and creating successful outcomes in short timeframes. Currently leading Meta's AI Transformation Taskforce and Market AI Acceleration program within the Forward Deployed Engineering org.</p>
+        <p><b>SEEKING:</b> New opportunities in the EU (relocating to Prague, CZ for family; can work remote EST as a US Digital Nomad). Looking to transform operations and re-think strategy with AI systems thinking to accelerate execution toward your goals.</p>
+        <div class="contact"><a href="mailto:biancanpham@gmail.com">biancanpham@gmail.com</a><br><a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">linkedin.com/in/biancapham</a></div>
+      </div>
+
+      <h2>GYM 8 · META (AI-NATIVE TYPE)</h2>
+      <div class="box">
+        <h3>SENIOR AI TECHNICAL PROGRAM MANAGER</h3>
+        <div class="sub">Meta · Forward Deployed Engineering Team · 07/2025 – Present · New York, US</div>
+        <ul>
+          <li>Elected to the AI Native Taskforce to transform the Forward Deployed Engineering org into an AI-native operating org. Led AI upskilling across the TPM organization and re-designed FDE program operations on AI-native infrastructure, resulting in AI-maintained team knowledge bases and agent-run automations for project tracking and status reporting, cutting time spent on reporting by 50% and accelerating roadmapping cycles from every 6 months to monthly.</li>
+          <li>Tapped to launch Market AI Acceleration, equipping FDEs with AI-enabled tools to accelerate new market opportunities. Built and shipped the program's flagship AI-powered market insights tool (Claude Code, Manus, internal MCPs) converting client-interaction insights into structured, sized product opportunities for PMs: 7x inbound insight volume, insight quality from 32% to 90%, potential TAM from $74B to $174B. Adopted org-wide by FDE and expanding to Sales.</li>
+          <li>Managed delivery of the Retail Advertiser Solution portfolio across 20+ cross-functional projects driving +$300M ARR in H2 2025 via new Omnichannel, Retail Media Network, and CPG Brand advertiser solutions.</li>
+        </ul>
+        <div class="badge-line">OUTSTANDING BADGE · 1 of 2 in the FDE org rated "Outstanding" (top 20% of Meta) in year one</div>
+      </div>
+
+      <h2>GYM 7 · STEALTH AI STARTUP (FOUNDER TYPE)</h2>
+      <div class="box">
+        <h3>CO-FOUNDER &amp; CPO</h3>
+        <div class="sub">AI Content Operating System · 07/2023 – 07/2025 · California, US</div>
+        <ul>
+          <li>Owned product end-to-end: market research, 50+ user interviews to validate prototypes, early-stage pricing model, and positioning, growing the pre-launch waitlist to 1,000+ users.</li>
+          <li>Taught myself Claude Code, Cursor, and Figma and shipped production code alongside my technical co-founder (React Native, Firebase, Vercel, AI APIs), going from non-technical to contributing directly to the full-stack build.</li>
+          <li>Led fundraising and investor communications: narrative, deck, model, and pitches. Resulted in interest from South Park Commons and Antler VC.</li>
+        </ul>
+        <div class="badge-line">FOUNDER BADGE · From non-technical to shipping full-stack code</div>
+      </div>
+
+      <h2>GYM 6 · HYPERMINT / MOONPAY (MINT TYPE)</h2>
+      <div class="box">
+        <h3>PRINCIPAL PRODUCT MANAGER</h3>
+        <div class="sub">HyperMint (acquired by MoonPay) · Web3 Enterprise Team · 08/2022 – 07/2023 · Lisbon, Portugal</div>
+        <ul>
+          <li>Defined the product vision and roadmap for HyperMint, an enterprise-grade minting platform enabling non-Web3 brands to seamlessly leverage blockchain utility for customer engagement.</li>
+          <li>Drove measurable success as a 0 → 1 product: $900K in primary sales, Top 5 Minters on the Polygon blockchain, and 1M+ mint transactions in the first year.</li>
+          <li>Managed strategic enterprise partnerships, leading to adoption by 20+ brands including Alo Yoga, Nike, and Universal Studios.</li>
+          <li>Defined the vision and led development of MoonPay's Web3 dashboard bundling HyperMint, NFT Checkout, and Crypto On/Off Ramps into an all-in-one launchpad for global enterprises.</li>
+        </ul>
+        <div class="badge-line">GTM BADGE · Closed 5+ large enterprises into Web3: Nike SWOOSH, Universal, Alo Yoga, FOX's Masked Singer, FaZe Clan</div>
+      </div>
+
+      <h2>GYM 5 · PALM NFT STUDIO (WEB3 TYPE)</h2>
+      <div class="box">
+        <h3>CLIENT GROUP PRODUCT MANAGER</h3>
+        <div class="sub">Palm NFT Studio (acquired by Candy Digital) · 01/2022 – 08/2022 · California, US</div>
+        <ul>
+          <li>Developed the product vision and feature roadmap for the DC Bat Cowl NFT Community, integrating fan base, utility, and storytelling elements, resulting in a Webby Award nomination for Best Use of Web3 Technology.</li>
+          <li>Directed product strategy, execution, and GTM for DC Comics' first NFT marketplace, growing the Palm Blockchain ecosystem by ~600,000 new users. Recognized by Ad Age as a Top 5 Metaverse Activation.</li>
+          <li>Managed enterprise customers (Microsoft Xbox, Universal Music Group UK, Archie Comics) to launch a customized, white-labeled NFT marketplace product with advanced gamification and engagement features.</li>
+        </ul>
+        <div class="badge-line">WEBBY BADGE · Webby nomination, Best Use of Web3 Technology</div>
+      </div>
+
+      <h2>GYM 4 · NIKE (INNOVATION TYPE)</h2>
+      <div class="box">
+        <h3>DIRECTOR OF PRODUCT MANAGEMENT</h3>
+        <div class="sub">Nike · Tech Innovation Team (restructured after RTFKT acquisition) · 02/2021 – 07/2021 · Oregon, US</div>
+        <ul>
+          <li>First Director of Product recruited to build Nike's emerging technology-focused innovation lab, shaping the product operating model and forming Nike's first technology product strategy across AI/ML, Metaverse, and Crypto/NFTs.</li>
+          <li>Led the 0 → 1 development of Nike's patented Cryptokicks technology, delivering the first proof-of-concept and beta for Nike's first digital sneaker marketplace, the foundational work now known as .SWOOSH.</li>
+          <li>Founding member of the Nike Metaverse Studio, defining the vision to position Nike as a category leader in virtual retail and next-generation social commerce.</li>
+        </ul>
+        <div class="badge-line">LEADERSHIP BADGE · Elected a Leadership Circles protégé within 3 months; "Highly Successful" rating (top 10–15%)</div>
+      </div>
+
+      <h2>GYM 3 · APPLE PAY (LAUNCH TYPE)</h2>
+      <div class="box">
+        <h3>SENIOR ENGINEERING PM</h3>
+        <div class="sub">Apple · Apple Pay Team · 12/2019 – 02/2021 · Cupertino, US</div>
+        <ul>
+          <li>Created Apple Pay's official beta testing launch-readiness program, enabling early feature validation, surfacing launch blockers and edge cases, and identifying new product opportunities. Established with the launch of Apple Card; now runs for every new release.</li>
+          <li>Drove cross-functional execution between Product, Engineering, UX, Legal, Ops, Marketing/PR, DevOps and external partners (Disney, LA/DC/NY Metro, Japan PASMO) to ensure smooth launches of major Apple Pay products.</li>
+          <li>Reported weekly to the Head of Apple Pay with synthesized user insights, trends, and critical pre-launch issues to manage external risk and PR considerations.</li>
+        </ul>
+        <div class="badge-line">LAUNCH BADGE · Every Apple Pay release still runs this program</div>
+      </div>
+
+      <h2>GYM 2 · APPLE APPLIED ML (ML TYPE)</h2>
+      <div class="box">
+        <h3>ENGINEERING PM → SENIOR ENGINEERING PM</h3>
+        <div class="sub">Apple · Applied Machine Learning Team · 10/2017 – 12/2019 · Sunnyvale, US</div>
+        <ul>
+          <li>Managed Apple's Operations, Logistics, and Supply Chain ML program portfolio and strategy: signature-required delivery prediction, recommended package sizing, and delivery-quote modeling.</li>
+          <li>Drove execution of GDPR-compliant data engineering solutions across Apple's ML platforms (Hadoop, Cassandra), enabling easy user-data access and deletion, resulting in executive recognition.</li>
+          <li>Led the ML Infrastructure PM team, driving the roadmap for core ML infrastructure with Data Science: big-data batch pipelines, real-time querying, Spark-based data conversion, enhanced notebooks, and support for Random Forest, TensorFlow, and XGBoost models.</li>
+        </ul>
+        <div class="badge-line">ACHIEVEMENT BADGE · Apple Achievement Award for GDPR execution on behalf of the Applied ML team</div>
+      </div>
+
+      <h2>GYM 1 · JPMORGAN CHASE (DATA TYPE)</h2>
+      <div class="box">
+        <h3>TECHNOLOGY ANALYST</h3>
+        <div class="sub">JPMorgan Chase &amp; Co. · Big Data Analytics Team · 06/2016 – 09/2017 · New York, US</div>
+        <ul>
+          <li>Directed end-to-end delivery of big-data initiatives across legal, product, data science, DevOps, data architecture, and engineering teams.</li>
+          <li>Delivered data solutions that cleansed and enriched merchant transaction data, powering personalized, machine-learned insights in the Chase Mobile App and improving next-best-action recommendations across millions of users.</li>
+        </ul>
+        <div class="badge-line">KEY BADGE · 1 of 5 Keys of Recognition for the product's consumer experience</div>
+      </div>
+
+      <h2>PROFESSOR'S LAB · EDUCATION</h2>
+      <div class="box grid2">
+        <div>
+          <h3>BSE · NETWORKED &amp; SOCIAL SYSTEMS ENGINEERING</h3>
+          <div class="sub">Computer Science + Game Theory + Graph Theory · University of Pennsylvania, SEAS</div>
+          <ul>
+            <li>1 of 11 accepted into the NETS engineering degree</li>
+            <li>Graduated Magna Cum Laude (top 20% of class)</li>
+            <li>Teacher's Assistant for Engineering Entrepreneurship</li>
+          </ul>
+        </div>
+        <div>
+          <h3>MINOR · CONSUMER PSYCHOLOGY &amp; MARKETING</h3>
+          <div class="sub">University of Pennsylvania · The Wharton School</div>
+          <h3 style="margin-top:14px">SIDE QUEST · TRAINED ON VIBES</h3>
+          <div class="sub">trainedonvibes.com</div>
+          <p style="margin:0">Teaching vibe coding and AI concepts in a simplified way for a non-technical audience, while building mini apps weekly.</p>
+        </div>
+      </div>
+
+      <h2>MART · SKILLS (ITEMS)</h2>
+      <div class="box">
+        <h3>TECHNICAL PROGRAM MANAGEMENT</h3>
+        <div class="tags"><span>SDLC</span><span>Roadmap Planning</span><span>Agile</span><span>Cross-Functional Team Mgmt</span><span>Stakeholder Mgmt</span><span>Risk Mgmt</span><span>Status Reporting</span><span>Release Mgmt</span><span>Process Optimization</span><span>Trello · Asana · Linear</span></div>
+        <h3 style="margin-top:14px">AI OPS &amp; DEVELOPER PRODUCTIVITY</h3>
+        <div class="tags"><span>AI-Native Program Ops</span><span>AI Tool Evaluation &amp; Adoption</span><span>Agent-run Workflows</span><span>AI Transformation</span><span>Change Mgmt &amp; Enablement</span><span>Claude Code</span><span>Cursor</span><span>Manus</span><span>Vercel</span><span>Convex</span><span>Supabase</span><span>GitHub</span><span>Claude · ChatGPT · Gemini · Perplexity</span></div>
+        <h3 style="margin-top:14px">PRODUCT &amp; OPERATIONS</h3>
+        <div class="tags"><span>Competitive Analysis</span><span>Product Strategy</span><span>Product Roadmaps</span><span>PRDs</span><span>User Journeys &amp; Stories</span><span>OKRs &amp; Metrics</span><span>GTM Strategy</span><span>Client Mgmt</span><span>Onboarding Enterprises</span><span>Executive Storytelling</span><span>Prioritized Decision-Making</span></div>
+      </div>
+    </section>
+  </div>
+
+  <footer>Fan-made homage in the style of a 1998 handheld RPG. Not affiliated with Nintendo, Game Freak, or The Pokémon Company. All art drawn from scratch.</footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // ============================================================
+  //  CONSTANTS + PALETTE
+  // ============================================================
+  var W = 160, H = 144, T = 16, MW = 44, MH = 40;
+  var PAL = ['#0f380f', '#306230', '#8bac0f', '#9bbc0f'];
+  var canvas = document.getElementById('screen');
+  var ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  var FONT = '8px "Press Start 2P", monospace';
+
+  // ============================================================
+  //  DATA: GYMS (jobs), BUILDINGS, NPCS
+  // ============================================================
+  var GYMS = [
+    { id: 0, key: 'jpm', name: 'JPMORGAN GYM', leader: 'JPMORGAN', type: 'DATA', role: 'TECH ANALYST', dates: '2016-2017', where: 'NEW YORK',
+      pos: [24, 32], badge: 'KEY BADGE', badgeDesc: '1 of 5 Keys of Recognition for the product\'s consumer experience.',
+      intro: 'Welcome, rookie! Big data is my specialty. Can you ship it end to end?', outro: 'You directed the whole pipeline! Take this.',
+      moves: [
+        ['END-TO-END DELIVERY', 'Directed big-data initiatives across legal, product, data science, DevOps, architecture and engineering teams.'],
+        ['DATA ENRICHMENT', 'Cleansed and enriched merchant transaction data, powering ML insights in the Chase Mobile App for millions of users.']
+      ] },
+    { id: 1, key: 'aml', name: 'APPLE ML GYM', leader: 'APPLE AML', type: 'ML', role: 'ENGINEERING PM', dates: '2017-2019', where: 'SUNNYVALE',
+      pos: [34, 25], badge: 'ACHIEVEMENT BADGE', badgeDesc: 'Apple Achievement Award from senior leadership for GDPR execution. Promoted to Senior Engineering PM!',
+      intro: 'This is the Applied Machine Learning gym. Show me your program portfolio.', outro: 'GDPR across every ML platform? Executive recognition is yours.',
+      moves: [
+        ['ML PORTFOLIO', 'Managed Apple\'s Ops, Logistics and Supply Chain ML portfolio: delivery prediction, package sizing and delivery quotes.'],
+        ['GDPR COMPLIANCE', 'Drove GDPR-compliant data engineering across Apple\'s ML platforms on Hadoop and Cassandra.'],
+        ['ML INFRA ROADMAP', 'Led the ML Infrastructure PM team: batch pipelines, real-time querying, Spark, notebooks, TensorFlow and XGBoost.']
+      ] },
+    { id: 2, key: 'pay', name: 'APPLE PAY GYM', leader: 'APPLE PAY', type: 'LAUNCH', role: 'SR ENGINEERING PM', dates: '2019-2021', where: 'CUPERTINO',
+      pos: [24, 18], badge: 'LAUNCH BADGE', badgeDesc: 'Every Apple Pay release still runs BIANCA\'s launch-readiness program.',
+      intro: 'Launches here have zero room for error. Are you ready?', outro: 'Not one blocker slipped through. Well played.',
+      moves: [
+        ['BETA READINESS', 'Created Apple Pay\'s official beta launch-readiness program. Started with Apple Card; now runs for every release.'],
+        ['CROSS-FUNCTIONAL', 'Drove execution across Product, Eng, UX, Legal, Ops, PR and partners like Disney, NY/LA/DC Metro and Japan PASMO.'],
+        ['EXEC BRIEFING', 'Reported weekly to the Head of Apple Pay with user insights and critical pre-launch issues.']
+      ] },
+    { id: 3, key: 'nike', name: 'NIKE GYM', leader: 'NIKE', type: 'INNOVATION', role: 'DIRECTOR OF PM', dates: '2021', where: 'OREGON',
+      pos: [34, 10], badge: 'LEADERSHIP BADGE', badgeDesc: 'Elected a Leadership Circles protege within 3 months. Rated Highly Successful, top 10-15%.',
+      intro: 'There is no innovation lab here yet. Build one.', outro: 'You built the lab AND the first product strategy. Just do it, indeed.',
+      moves: [
+        ['BUILD THE LAB', 'First Director of Product hired to build Nike\'s emerging-tech lab. Formed Nike\'s first tech product strategy across AI/ML, Metaverse and Crypto/NFTs.'],
+        ['CRYPTOKICKS', 'Led 0 to 1 development of Nike\'s patented Cryptokicks tech: first proof-of-concept and beta of the digital sneaker marketplace, now .SWOOSH.'],
+        ['METAVERSE STUDIO', 'Founding member of the Nike Metaverse Studio, positioning Nike as a leader in virtual retail.']
+      ] },
+    { id: 4, key: 'palm', name: 'PALM GYM', leader: 'PALM STUDIO', type: 'WEB3', role: 'CLIENT GROUP PM', dates: '2022', where: 'CALIFORNIA',
+      pos: [20, 4], badge: 'WEBBY BADGE', badgeDesc: 'Webby Award nomination for Best Use of Web3 Technology.',
+      intro: 'DC Comics is counting on this marketplace. Impress me.', outro: '600,000 new users! The Webby is well deserved.',
+      moves: [
+        ['BAT COWL ROADMAP', 'Product vision and roadmap for the DC Bat Cowl NFT Community: fans, utility and storytelling.'],
+        ['MARKETPLACE GTM', 'Led strategy, execution and GTM for DC Comics\' first NFT marketplace. About 600,000 new users! Ad Age Top 5 Metaverse Activation.'],
+        ['WHITE-LABEL LAUNCH', 'Launched customized marketplaces for Microsoft Xbox, Universal Music Group UK and Archie Comics.']
+      ] },
+    { id: 5, key: 'mint', name: 'HYPERMINT GYM', leader: 'HYPERMINT', type: 'MINT', role: 'PRINCIPAL PM', dates: '2022-2023', where: 'LISBON',
+      pos: [9, 8], badge: 'GTM BADGE', badgeDesc: 'Closed 5+ large enterprises into Web3: Nike SWOOSH, Universal, Alo Yoga, FOX\'s Masked Singer, FaZe Clan and more.',
+      intro: 'Non-Web3 brands want in. Can you build the platform from zero?', outro: 'Top 5 Minter on Polygon in year one. Incredible.',
+      moves: [
+        ['PRODUCT VISION', 'Defined the vision and roadmap for an enterprise minting platform that let non-Web3 brands use blockchain utility.'],
+        ['0 TO 1 RESULTS', '$900K in primary sales, Top 5 Minter on Polygon and 1M+ mint transactions in year one!'],
+        ['ENTERPRISE PARTNERS', 'Onboarded 20+ brands including Alo Yoga, Nike and Universal Studios.'],
+        ['WEB3 DASHBOARD', 'Led MoonPay\'s Web3 dashboard bundling HyperMint, NFT Checkout and Crypto On/Off Ramps.']
+      ] },
+    { id: 6, key: 'startup', name: 'STARTUP GYM', leader: 'STEALTH CO', type: 'FOUNDER', role: 'CO-FOUNDER & CPO', dates: '2023-2025', where: 'CALIFORNIA',
+      pos: [2, 16], badge: 'FOUNDER BADGE', badgeDesc: 'Went from non-technical to shipping full-stack code. An AI Content Operating System, built from nothing.',
+      intro: 'No team, no product, no funding. Just an idea. Go.', outro: 'You shipped the code yourself?! Founder status confirmed.',
+      moves: [
+        ['USER RESEARCH', 'Owned product end to end. 50+ user interviews, early pricing model and positioning. Waitlist grew to 1,000+.'],
+        ['VIBE CODING', 'Taught myself Claude Code, Cursor and Figma. Shipped production React Native, Firebase and Vercel code with my co-founder.'],
+        ['FUNDRAISING', 'Built the narrative, deck and model and ran pitches. Interest from South Park Commons and Antler VC.']
+      ] },
+    { id: 7, key: 'meta', name: 'META GYM', leader: 'META', type: 'AI-NATIVE', role: 'SENIOR AI TPM', dates: '2025-NOW', where: 'NEW YORK',
+      pos: [19, 11], big: true, badge: 'OUTSTANDING BADGE', badgeDesc: '1 of 2 in the FDE org rated Outstanding, top 20% of Meta, in year one.',
+      intro: 'The final gym. Transform an entire org to AI-native operations. Begin!', outro: 'The org runs on agents now. You are the very best.',
+      moves: [
+        ['AI-NATIVE OPS', 'Elected to the AI Native Taskforce. Re-designed FDE program ops on AI-native infra with agent-run tracking and reporting. Reporting time down 50%! Roadmap cycles: 6 months to monthly!'],
+        ['MARKET INSIGHTS TOOL', 'Built and shipped an AI market insights tool with Claude Code, Manus and MCPs. 7x insight volume! Quality 32% to 90%! TAM $74B to $174B! Adopted org-wide.'],
+        ['PORTFOLIO DELIVERY', 'Managed the Retail Advertiser Solution portfolio: 20+ projects driving +$300M ARR in H2 2025.']
+      ] }
+  ];
+
+  // ============================================================
+  //  PIXEL ART (16x16, chars 0-3 = palette, . = transparent)
+  // ============================================================
+  var SPR = {
+    pD: ["......0000......", "....00111100....", "...0111111110...", "..000000000000..", "..033333333330..", "..033033330330..", "..033333333330..", "...0333003330...", "....00033000....", "...0222222220...", "..022022220220..", "..020022220020..", "..000022220000..", "....03300330....", "....00000000....", "................"],
+    pD2: ["......0000......", "....00111100....", "...0111111110...", "..000000000000..", "..033333333330..", "..033033330330..", "..033333333330..", "...0333003330...", "....00033000....", "...0222222220...", "..022022220220..", "..020022220020..", "..000022220000..", "....03300000....", "....00000330....", "........0000...."],
+    pU: ["......0000......", "....00111100....", "...0111111110...", "..000000000000..", "..011111111110..", "..011111111110..", "..011111111110..", "...0111111110...", "....00000000....", "...0222222220...", "..022022220220..", "..020022220020..", "..000022220000..", "....03300330....", "....00000000....", "................"],
+    pU2: ["......0000......", "....00111100....", "...0111111110...", "..000000000000..", "..011111111110..", "..011111111110..", "..011111111110..", "...0111111110...", "....00000000....", "...0222222220...", "..022022220220..", "..020022220020..", "..000022220000..", "....00000330....", "....03300000....", "....0000........"],
+    pL: ["......0000......", "....00111100....", "...0111111100...", "..000000000000..", "..011133333330..", "..011130333330..", "..011133333330..", "...0111330330...", "....00033000....", "...0222222220...", "..022222222200..", "..022222222200..", "..000022220000..", "....03300330....", "....00000000....", "................"],
+    pL2: ["......0000......", "....00111100....", "...0111111100...", "..000000000000..", "..011133333330..", "..011130333330..", "..011133333330..", "...0111330330...", "....00033000....", "...0222222220...", "..022222222200..", "..022222222200..", "..000022220000..", "....03300000....", "....0000.0330...", ".........0000..."],
+    qD: ["................", ".....000000.....", "....01111110....", "...0111111110...", "...0130110310...", "...0111221110...", "..011133333110..", "..011333333110..", "..011333333110..", "..011333333110..", "...0113333110...", "....01111110....", "....02200220....", "................", "................", "................"],
+    qD2: ["................", "................", ".....000000.....", "....01111110....", "...0111111110...", "...0130110310...", "...0111221110...", "..011133333110..", "..011333333110..", "..011333333110..", "..011333333110..", "...0113333110...", "....01111110....", "....02200220....", "................", "................"],
+    qU: ["................", ".....000000.....", "....01111110....", "...0111111110...", "...0111111110...", "...0111111110...", "..011111111110..", "..011111111110..", "..011111111110..", "..011111111110..", "...0111111110...", "....01111110....", "....02200220....", "................", "................", "................"],
+    qL: ["................", ".....000000.....", "....01111110....", "...0111111110...", "...0111103110...", "...0111112210...", "..011113333110..", "..011113333110..", "..011113333110..", "..011113333110..", "...0111333110...", "....01111110....", "....02200220....", "................", "................", "................"],
+    prof: ["......0000......", "....00333300....", "...0333333330...", "..003333333300..", "..033333333330..", "..033033330330..", "..033333333330..", "...0333003330...", "....00033000....", "...0333333330...", "..033033330330..", "..030033330030..", "..000033330000..", "....01100110....", "....00000000....", "................"],
+    leader: ["......0000......", "....00000000....", "...0000000000...", "..000000000000..", "..033333333330..", "..033033330330..", "..033333333330..", "...0333003330...", "....00033000....", "...0111111110...", "..011011110110..", "..010011110010..", "..000011110000..", "....03300330....", "....00000000....", "................"]
+  };
+  var BADGE = [
+    ["..0000..", ".033330.", "03322330", "03222230", "03222230", "03322330", ".033330.", "..0000.."],
+    ["...00...", "..0330..", ".033330.", "03333330", "03322330", ".033330.", "..0330..", "...00..."],
+    ["00000000", "03333330", "03222230", "03233230", "03233230", "03222230", "03333330", "00000000"],
+    ["...00...", "...00...", "..0330..", "..0330..", ".033330.", ".032230.", "03333330", "00000000"],
+    ["..0000..", ".033330.", "03333330", "03323330", "03333330", "03323330", ".033330.", "..0000.."],
+    ["0..00..0", "00.33.00", "03333330", "03222230", "03222230", "03333330", "00.33.00", "0..00..0"],
+    ["...00...", "..0330..", ".033330.", "03333330", "03222230", "0.3333.0", "...00...", "...00..."],
+    ["00000000", "03333330", "03033030", "03333330", "03222230", "03233230", "03333330", "00000000"]
+  ];
+
+  function px(arr, ctx2, x, y, map, flip, scale) {
+    scale = scale || 1;
+    for (var r = 0; r < arr.length; r++) {
+      var row = arr[r];
+      for (var c = 0; c < row.length; c++) {
+        var ch = row[c];
+        if (ch === '.') continue;
+        var idx = map ? map[+ch] : +ch;
+        ctx2.fillStyle = PAL[idx];
+        var cx = flip ? (row.length - 1 - c) : c;
+        ctx2.fillRect(x + cx * scale, y + r * scale, scale, scale);
+      }
+    }
+  }
+
+  // ============================================================
+  //  TILESET (procedural)
+  // ============================================================
+  var TILES = { GRASS: 0, PATH: 1, TALL: 2, TREE: 3, WATER: 4, FENCE: 5, FLOWER: 6, WALL: 7, ROOF: 8, DOOR: 9, SIGN: 10, GYMROOF: 11, WINDOW: 12, CENROOF: 13, MARTROOF: 14, HOUSEROOF: 15, LABROOF: 16 };
+  var SOLID = { 3: 1, 4: 1, 5: 1, 7: 1, 8: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1 };
+  var tileCanvas = document.createElement('canvas'); tileCanvas.width = 17 * T; tileCanvas.height = 2 * T;
+  var tc = tileCanvas.getContext('2d');
+  function f(c, x, y, w, h) { tc.fillStyle = PAL[c]; tc.fillRect(x, y, w, h); }
+  function drawTiles() {
+    for (var frame = 0; frame < 2; frame++) {
+      var oy = frame * T;
+      for (var t = 0; t < 17; t++) {
+        var ox = t * T;
+        f(3, ox, oy, T, T);
+        switch (t) {
+          case 0: f(2, ox + 3, oy + 4, 1, 1); f(2, ox + 11, oy + 9, 1, 1); f(2, ox + 6, oy + 12, 1, 1); f(2, ox + 13, oy + 2, 1, 1); f(2, ox + 8, oy + 7, 1, 1); break;
+          case 1: f(2, ox, oy, T, T); f(3, ox + 2, oy + 3, 2, 1); f(3, ox + 10, oy + 6, 2, 1); f(3, ox + 5, oy + 11, 2, 1); f(3, ox + 13, oy + 13, 2, 1); f(1, ox + 8, oy + 2, 1, 1); f(1, ox + 3, oy + 9, 1, 1); f(1, ox + 12, oy + 10, 1, 1); break;
+          case 2: f(2, ox, oy, T, T); for (var i = 0; i < 4; i++) for (var j = 0; j < 4; j++) { var sx = ox + i * 4 + (j % 2 ? 2 : 0), sy = oy + j * 4; f(1, sx, sy + 1, 1, 2); f(1, sx + 1, sy, 1, 1); f(1, sx + 2, sy + 1, 1, 2); f(3, sx + 1, sy + 2, 1, 1); } break;
+          case 3: f(1, ox + 3, oy + 1, 10, 10); f(1, ox + 2, oy + 3, 12, 6); f(0, ox + 3, oy + 10, 10, 1); f(0, ox + 2, oy + 9, 1, 1); f(0, ox + 13, oy + 9, 1, 1); f(2, ox + 5, oy + 2, 2, 2); f(2, ox + 9, oy + 3, 1, 1); f(2, ox + 4, oy + 6, 1, 1); f(0, ox + 6, oy + 11, 4, 4); f(0, ox + 3, oy + 0, 10, 1); f(0, ox + 2, oy + 2, 1, 1); f(0, ox + 13, oy + 2, 1, 1); f(0, ox + 1, oy + 3, 1, 6); f(0, ox + 14, oy + 3, 1, 6); break;
+          case 4: f(2, ox, oy, T, T); var wy = frame ? 5 : 3; f(3, ox + 1, oy + wy, 4, 1); f(3, ox + 9, oy + wy, 4, 1); f(3, ox + 5, oy + wy + 8, 4, 1); f(3, ox + 13, oy + wy + 8, 3, 1); f(1, ox + 3, oy + wy + 1, 2, 1); f(1, ox + 11, oy + wy + 1, 2, 1); break;
+          case 5: f(0, ox + 2, oy + 3, 3, 11); f(0, ox + 11, oy + 3, 3, 11); f(0, ox, oy + 6, T, 2); f(0, ox, oy + 10, T, 2); f(2, ox + 3, oy + 4, 1, 1); f(2, ox + 12, oy + 4, 1, 1); break;
+          case 6: f(2, ox + 3, oy + 4, 1, 1); f(2, ox + 11, oy + 9, 1, 1); f(0, ox + 7, oy + 5, 3, 1); f(0, ox + 6, oy + 6, 1, 3); f(0, ox + 10, oy + 6, 1, 3); f(0, ox + 7, oy + 9, 3, 1); f(2, ox + 7, oy + 6, 3, 3); f(3, ox + 8, oy + 7, 1, 1); f(0, ox + 8, oy + 10, 1, 3); break;
+          case 7: f(1, ox, oy + 3, T, 1); f(1, ox, oy + 7, T, 1); f(1, ox, oy + 11, T, 1); f(1, ox, oy + 15, T, 1); f(1, ox + 4, oy, 1, 3); f(1, ox + 12, oy, 1, 3); f(1, ox + 8, oy + 4, 1, 3); f(1, ox + 4, oy + 8, 1, 3); f(1, ox + 12, oy + 8, 1, 3); f(1, ox + 8, oy + 12, 1, 3); break;
+          case 8: f(1, ox, oy, T, T); f(0, ox, oy + 3, T, 1); f(0, ox, oy + 7, T, 1); f(0, ox, oy + 11, T, 1); f(0, ox, oy + 15, T, 1); f(2, ox + 2, oy + 1, 1, 1); f(2, ox + 9, oy + 5, 1, 1); break;
+          case 9: f(0, ox + 3, oy, 10, T); f(2, ox + 5, oy + 3, 6, 13); f(1, ox + 5, oy + 3, 6, 1); f(0, ox + 9, oy + 9, 1, 1); break;
+          case 10: f(0, ox + 1, oy + 2, 14, 8); f(2, ox + 2, oy + 3, 12, 6); f(0, ox + 4, oy + 5, 8, 1); f(0, ox + 4, oy + 7, 5, 1); f(0, ox + 7, oy + 10, 2, 6); break;
+          case 11: f(0, ox, oy, T, T); for (var k = 0; k < 4; k++) { f(3, ox + k * 4, oy + 2, 2, 1); f(3, ox + k * 4 + 1, oy + 3, 2, 1); f(3, ox + k * 4, oy + 10, 2, 1); f(3, ox + k * 4 + 1, oy + 11, 2, 1); } f(2, ox, oy + 6, T, 1); f(2, ox, oy + 14, T, 1); break;
+          case 12: f(1, ox, oy + 3, T, 1); f(1, ox, oy + 11, T, 1); f(1, ox, oy + 15, T, 1); f(0, ox + 3, oy + 4, 10, 8); f(2, ox + 4, oy + 5, 8, 6); f(0, ox + 7, oy + 5, 2, 6); f(0, ox + 4, oy + 7, 8, 2); break;
+          case 13: f(2, ox, oy, T, T); f(0, ox, oy + 3, T, 1); f(0, ox, oy + 7, T, 1); f(0, ox, oy + 11, T, 1); f(0, ox, oy + 15, T, 1); f(0, ox + 7, oy + 4, 2, 6); f(0, ox + 5, oy + 6, 6, 2); break;
+          case 14: f(1, ox, oy, T, T); for (var m = 0; m < 4; m++) f(3, ox + m * 4 + 2, oy, 2, T); f(0, ox, oy + 15, T, 1); break;
+          case 15: f(1, ox, oy, T, T); f(0, ox, oy + 2, T, 1); f(0, ox, oy + 6, T, 1); f(0, ox, oy + 10, T, 1); f(0, ox, oy + 14, T, 1); f(2, ox + 1, oy + 3, 1, 1); f(2, ox + 8, oy + 7, 1, 1); f(2, ox + 5, oy + 11, 1, 1); break;
+          case 16: f(3, ox, oy, T, T); f(0, ox, oy, T, 1); f(0, ox, oy + 4, T, 1); f(0, ox, oy + 8, T, 1); f(0, ox, oy + 12, T, 1); f(1, ox + 2, oy + 1, 12, 3); f(1, ox + 2, oy + 9, 12, 3); f(0, ox, oy + 15, T, 1); break;
+        }
+      }
+    }
+  }
+  drawTiles();
+
+  // ============================================================
+  //  MAP
+  // ============================================================
+  var map = new Uint8Array(MW * MH);
+  var signs = {}, doors = {}, npcs = [];
+  function set(x, y, t) { if (x >= 0 && y >= 0 && x < MW && y < MH) map[y * MW + x] = t; }
+  function get(x, y) { if (x < 0 || y < 0 || x >= MW || y >= MH) return TILES.TREE; return map[y * MW + x]; }
+  function rect(x, y, w, h, t) { for (var j = 0; j < h; j++) for (var i = 0; i < w; i++) set(x + i, y + j, t); }
+  function path(x1, y1, x2, y2) { // horizontal then vertical
+    var x = x1, y = y1;
+    while (x !== x2) { set(x, y, TILES.PATH); x += x2 > x ? 1 : -1; }
+    while (y !== y2) { set(x, y, TILES.PATH); y += y2 > y ? 1 : -1; }
+    set(x2, y2, TILES.PATH);
+  }
+  function building(x, y, w, h, roof, signText, evt, key) {
+    rect(x, y, w, h - 2, roof);
+    rect(x, y + h - 2, w, 2, TILES.WALL);
+    var dx = x + (w >> 1), dy = y + h - 1;
+    for (var i = x + 1; i < x + w - 1; i += 2) if (i !== dx && i !== dx - 1 && i !== dx + 1) set(i, y + h - 2, TILES.WINDOW);
+    set(dx, dy, TILES.DOOR);
+    set(dx + 2, dy, TILES.SIGN);
+    signs[(dx + 2) + ',' + dy] = signText;
+    doors[dx + ',' + dy] = { evt: evt, key: key, x: dx, y: dy };
+    return { x: dx, y: dy };
+  }
+  // seeded rng
+  var seed = 20160601; function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+
+  // base grass, border trees
+  for (var i = 0; i < map.length; i++) map[i] = TILES.GRASS;
+  rect(0, 0, MW, 1, TILES.TREE); rect(0, MH - 1, MW, 1, TILES.TREE); rect(0, 0, 1, MH, TILES.TREE); rect(MW - 1, 0, 1, MH, TILES.TREE);
+
+  // paths (drawn first, buildings on top)
+  path(2, 33, 18, 33); path(17, 33, 17, 38); path(2, 38, 16, 38);
+  path(17, 37, 27, 37); path(27, 37, 37, 37); path(37, 37, 37, 30); path(37, 30, 32, 30);
+  path(32, 30, 32, 23); path(32, 23, 27, 23);
+  path(27, 23, 32, 23); path(32, 23, 32, 15); path(32, 15, 37, 15);
+  path(32, 15, 32, 9); path(32, 9, 23, 9);
+  path(23, 9, 18, 9); path(18, 9, 18, 13); path(18, 13, 12, 13);
+  path(12, 13, 12, 21); path(12, 21, 5, 21);
+  path(12, 21, 18, 21); path(18, 21, 18, 17); path(18, 17, 23, 17);
+  path(2, 33, 2, 21); path(18, 33, 18, 21);
+  // decor
+  rect(20, 25, 11, 5, TILES.TALL); rect(3, 23, 8, 5, TILES.TALL); rect(36, 17, 6, 6, TILES.TALL); rect(20, 35, 5, 3, TILES.TALL);
+  rect(38, 33, 4, 5, TILES.WATER); rect(3, 3, 5, 4, TILES.WATER); rect(26, 40 - 1, 0, 0, TILES.GRASS);
+  rect(20, 30, 11, 1, TILES.FENCE); rect(36, 23, 6, 1, TILES.FENCE);
+  for (var y = 1; y < MH - 1; y++) for (var x = 1; x < MW - 1; x++) {
+    if (get(x, y) !== TILES.GRASS) continue;
+    var r = rnd();
+    if (r < 0.07) set(x, y, TILES.TREE); else if (r < 0.11) set(x, y, TILES.FLOWER);
+  }
+  // clusters of trees for mountain-ish edges
+  rect(1, 1, 2, 2, TILES.TREE); rect(40, 38, 3, 1, TILES.TREE); rect(28, 1, 4, 2, TILES.TREE); rect(1, 36, 1, 3, TILES.TREE);
+
+  // buildings
+  var HOUSE = building(3, 29, 5, 4, TILES.HOUSEROOF, "BIANCA's HOUSE. A PC glows inside. (Side project: TRAINED ON VIBES)", 'house', 'house');
+  var LAB = building(10, 28, 7, 5, TILES.LABROOF, "PROF. PENN's LAB. Education and trainer registration.", 'lab', 'lab');
+  var CENTER = building(3, 34, 5, 4, TILES.CENROOF, "CONTACT CENTER. Send BIANCA a message or add her as a buddy.", 'center', 'center');
+  var MART = building(10, 34, 5, 4, TILES.MARTROOF, "SKILL MART. Browse BIANCA's skills by category.", 'mart', 'mart');
+  GYMS.forEach(function (g) {
+    var w = g.big ? 9 : 7, h = g.big ? 6 : 5;
+    var d = building(g.pos[0], g.pos[1], w, h, TILES.GYMROOF, g.name + '. LEADER: ' + g.leader + '. ' + g.type + '-type trainers. ' + g.role + ', ' + g.dates + '.', 'gym', g.key);
+    g.door = d;
+  });
+  // make sure door fronts are walkable path
+  Object.keys(doors).forEach(function (k) { var d = doors[k]; set(d.x, d.y + 1, TILES.PATH); });
+
+  npcs = [
+    { x: 16, y: 34, spr: 'pD', pal: [0, 0, 3, 2], text: "AIDE: PROF. PENN keeps BIANCA's diploma in the LAB. Magna Cum Laude, top 20% of class!" },
+    { x: 30, y: 38, spr: 'pD', pal: [0, 1, 3, 2], text: "RECRUITER: I hear the leader of the northern gym ships 20+ projects at once. +$300M ARR!" },
+    { x: 26, y: 10, spr: 'pD', pal: [0, 0, 2, 3], text: "HIKER: PALM GYM's leader got a WEBBY nomination. 600,000 users climbed that mountain!" },
+    { x: 19, y: 25, spr: 'pD', pal: [0, 1, 2, 3], text: "YOUNGSTER: Trainers who collect all 8 BADGES get a job offer... probably. Try the START menu for the TOWN MAP!" },
+    { x: 33, y: 20, spr: 'pD', pal: [0, 0, 3, 2], text: "LASS: BIANCA is relocating to PRAGUE, CZ. She can work remote on EST hours too!" }
+  ];
+  npcs.forEach(function (n) { set(n.x, n.y, TILES.GRASS); });
+
+  // ============================================================
+  //  STATE
+  // ============================================================
+  var save = {};
+  try { save = JSON.parse(localStorage.getItem('bianca-red') || '{}'); } catch (e) { save = {}; }
+  var badges = save.badges || {};
+  var seenIntro = !!save.intro;
+  function persist() { try { localStorage.setItem('bianca-red', JSON.stringify({ badges: badges, intro: true })); } catch (e) {} }
+  function badgeCount() { return Object.keys(badges).length; }
+
+  var player = { x: HOUSE.x, y: HOUSE.y + 1, dir: 'D', moving: false, prog: 0, tx: 0, ty: 0, step: 0 };
+  var pal = { x: HOUSE.x, y: HOUSE.y, dir: 'D', moving: false, prog: 0, tx: 0, ty: 0, step: 0 };
+  var cam = { x: 0, y: 0 };
+  var scene = 'world'; // world | battle | card | map | hof
+  var ui = null;       // dialog | menu
+  var frame = 0;
+  var battle = null;
+  var busy = false;    // script running
+  var steps = 0;
+
+  // ============================================================
+  //  INPUT
+  // ============================================================
+  var held = {}, pressed = {};
+  var KEYMAP = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', W: 'up', S: 'down', A: 'left', D: 'right', z: 'a', Z: 'a', ' ': 'a', Enter: 'start', x: 'b', X: 'b', Escape: 'b', Shift: 'select' };
+  function down(k) { if (!held[k]) pressed[k] = true; held[k] = true; }
+  function up(k) { held[k] = false; }
+  // Keys only drive the game while the Game Boy is "active" (page load, or last click inside it),
+  // so arrow keys and Space still scroll the text guide once the reader clicks away.
+  var gb = document.getElementById('gb'), gameFocus = true;
+  document.addEventListener('pointerdown', function (e) { gameFocus = gb.contains(e.target); if (gameFocus) canvas.focus({ preventScroll: true }); });
+  canvas.addEventListener('focus', function () { gameFocus = true; });
+  document.addEventListener('keydown', function (e) {
+    var k = KEYMAP[e.key]; if (!k) return;
+    if (!gameFocus) return;
+    if (document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    e.preventDefault(); down(k);
+  });
+  document.addEventListener('keyup', function (e) { var k = KEYMAP[e.key]; if (k) up(k); });
+  window.addEventListener('blur', function () { held = {}; });
+  document.querySelectorAll('[data-key]').forEach(function (b) {
+    var k = b.dataset.key;
+    var on = function (e) { e.preventDefault(); b.classList.add('on'); down(k); unlockAudio(); };
+    var off = function (e) { e.preventDefault(); b.classList.remove('on'); up(k); };
+    b.addEventListener('pointerdown', on); b.addEventListener('pointerup', off); b.addEventListener('pointerleave', off); b.addEventListener('pointercancel', off);
+  });
+  document.addEventListener('keydown', unlockAudio, { once: true });
+
+  // ============================================================
+  //  SOUND (tiny square-wave beeps)
+  // ============================================================
+  var audio = null, soundOn = false;
+  function unlockAudio() { if (!audio && window.AudioContext) { try { audio = new AudioContext(); } catch (e) {} } if (audio && audio.state === 'suspended') audio.resume(); }
+  function beep(freq, dur, type, vol) {
+    if (!soundOn || !audio) return;
+    var o = audio.createOscillator(), g = audio.createGain();
+    o.type = type || 'square'; o.frequency.value = freq; g.gain.value = vol || 0.04;
+    o.connect(g); g.connect(audio.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + dur); o.stop(audio.currentTime + dur);
+  }
+  function jingle(notes, step) { notes.forEach(function (n, i) { setTimeout(function () { beep(n, 0.18); }, i * (step || 110)); }); }
+  document.getElementById('sound').addEventListener('click', function () {
+    unlockAudio(); soundOn = !soundOn; this.textContent = 'SOUND: ' + (soundOn ? 'ON' : 'OFF'); this.setAttribute('aria-pressed', soundOn); if (soundOn) jingle([660, 880]);
+  });
+
+  // ============================================================
+  //  TEXT + UI PRIMITIVES
+  // ============================================================
+  function wrap(text, cols) {
+    var words = text.split(' '), lines = [], cur = '';
+    words.forEach(function (w) {
+      if ((cur + (cur ? ' ' : '') + w).length <= cols) cur += (cur ? ' ' : '') + w;
+      else { if (cur) lines.push(cur); while (w.length > cols) { lines.push(w.slice(0, cols)); w = w.slice(cols); } cur = w; }
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  function paginate(text, cols, rows) {
+    var lines = wrap(text, cols), pages = [];
+    for (var i = 0; i < lines.length; i += rows) pages.push(lines.slice(i, i + rows));
+    return pages;
+  }
+  function box(x, y, w, h) {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = PAL[0];
+    ctx.fillRect(x + 1, y + 1, w - 2, 1); ctx.fillRect(x + 1, y + h - 2, w - 2, 1); ctx.fillRect(x + 1, y + 1, 1, h - 2); ctx.fillRect(x + w - 2, y + 1, 1, h - 2);
+    ctx.fillRect(x + 3, y + 3, w - 6, 1); ctx.fillRect(x + 3, y + h - 4, w - 6, 1); ctx.fillRect(x + 3, y + 3, 1, h - 6); ctx.fillRect(x + w - 4, y + 3, 1, h - 6);
+  }
+  function text(s, x, y, c) { ctx.fillStyle = PAL[c == null ? 0 : c]; ctx.font = FONT; ctx.textBaseline = 'top'; ctx.fillText(s, x, y); }
+
+  // dialog: say(...strings) -> Promise
+  function say() {
+    var parts = Array.prototype.slice.call(arguments), pages = [];
+    parts.forEach(function (p) { paginate(p, 18, 3).forEach(function (pg) { pages.push(pg); }); });
+    return new Promise(function (res) { ui = { kind: 'dialog', pages: pages, page: 0, ci: 0, done: res }; });
+  }
+  // menu(items, opts) -> Promise(index | -1)
+  function menu(items, opts) {
+    opts = opts || {};
+    return new Promise(function (res) { ui = { kind: 'menu', items: items, sel: 0, done: res, x: opts.x != null ? opts.x : 88, y: opts.y != null ? opts.y : 0, w: opts.w || 72, cancel: opts.cancel !== false, title: opts.title }; });
+  }
+  function choice(q) { return say(q).then(function () { return menu(['YES', 'NO'], { x: 104, y: 56, w: 48 }); }).then(function (i) { return i === 0; }); }
+  function wait(frames) { return new Promise(function (res) { ui = { kind: 'wait', left: frames, done: res }; }); }
+  function pageLen(p) { return p.join('\n').length; }
+
+  function updateUI() {
+    if (!ui) return;
+    if (ui.kind === 'wait') { if (--ui.left <= 0) { var d = ui.done; ui = null; d(); } return; }
+    if (ui.kind === 'dialog') {
+      var full = pageLen(ui.pages[ui.page]);
+      if (ui.ci < full) { ui.ci += held.a || held.b ? 3 : 1; if (ui.ci % 6 === 0) beep(1200, 0.02, 'square', 0.015); if (ui.ci > full) ui.ci = full; }
+      else if (pressed.a || pressed.b) {
+        pressed.a = pressed.b = false; beep(900, 0.05);
+        if (ui.page < ui.pages.length - 1) { ui.page++; ui.ci = 0; }
+        else { var dn = ui.done; ui = null; dn(); }
+      }
+      return;
+    }
+    if (ui.kind === 'menu') {
+      if (pressed.up) { ui.sel = (ui.sel + ui.items.length - 1) % ui.items.length; beep(700, 0.03); }
+      if (pressed.down) { ui.sel = (ui.sel + 1) % ui.items.length; beep(700, 0.03); }
+      if (pressed.a) { var d2 = ui.done, s = ui.sel; ui = null; beep(1000, 0.05); d2(s); }
+      else if (pressed.b && ui.cancel) { var d3 = ui.done; ui = null; beep(500, 0.05); d3(-1); }
+      pressed.up = pressed.down = pressed.a = pressed.b = false;
+    }
+  }
+  function drawUI() {
+    if (!ui) return;
+    if (ui.kind === 'dialog') {
+      box(0, 96, W, 48);
+      var lines = ui.pages[ui.page], n = ui.ci, ly = 104;
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i]; if (n <= 0) break;
+        text(l.slice(0, n), 8, ly); n -= l.length + 1; ly += 13;
+      }
+      if (ui.ci >= pageLen(lines) && (frame >> 4) % 2 === 0) { ctx.fillStyle = PAL[0]; ctx.fillRect(146, 134, 6, 1); ctx.fillRect(147, 135, 4, 1); ctx.fillRect(148, 136, 2, 1); }
+    } else if (ui.kind === 'menu') {
+      var h = ui.items.length * 14 + 12 + (ui.title ? 12 : 0);
+      box(ui.x, ui.y, ui.w, h);
+      var ty = ui.y + 7;
+      if (ui.title) { text(ui.title, ui.x + 8, ty); ty += 12; }
+      ui.items.forEach(function (it, i) { text(it, ui.x + 15, ty + i * 14); if (i === ui.sel) text('▶', ui.x + 6, ty + i * 14); });
+    }
+  }
+
+  // ============================================================
+  //  WORLD
+  // ============================================================
+  function passable(x, y) {
+    var t = get(x, y);
+    if (SOLID[t]) return false;
+    for (var i = 0; i < npcs.length; i++) if (npcs[i].x === x && npcs[i].y === y) return false;
+    return true;
+  }
+  var DIRS = { up: [0, -1, 'U'], down: [0, 1, 'D'], left: [-1, 0, 'L'], right: [1, 0, 'R'] };
+  function facing() { var d = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] }[player.dir]; return { x: player.x + d[0], y: player.y + d[1] }; }
+
+  function startMove(ent, dx, dy, dir) {
+    ent.dir = dir; ent.tx = ent.x + dx; ent.ty = ent.y + dy; ent.moving = true; ent.prog = 0; ent.step ^= 1;
+  }
+  function advance(ent) {
+    if (!ent.moving) return false;
+    ent.prog += 2;
+    if (ent.prog >= T) { ent.x = ent.tx; ent.y = ent.ty; ent.moving = false; ent.prog = 0; return true; }
+    return false;
+  }
+  function pixelPos(ent) {
+    var px0 = ent.x * T, py0 = ent.y * T;
+    if (ent.moving) { px0 += (ent.tx - ent.x) * ent.prog; py0 += (ent.ty - ent.y) * ent.prog; }
+    return { x: px0, y: py0 };
+  }
+
+  function updateWorld() {
+    if (ui || busy) { pressed = {}; return; }
+    if (pressed.start) { pressed = {}; openStart(); return; }
+    if (pressed.a && !player.moving) {
+      pressed.a = false;
+      var fc = facing(), key = fc.x + ',' + fc.y;
+      if (signs[key]) { runScript(function () { return say(signs[key]); }); return; }
+      for (var i = 0; i < npcs.length; i++) if (npcs[i].x === fc.x && npcs[i].y === fc.y) { var n = npcs[i]; runScript(function () { return say(n.text); }); return; }
+    }
+    if (!player.moving) {
+      var d = held.up ? 'up' : held.down ? 'down' : held.left ? 'left' : held.right ? 'right' : null;
+      if (d) {
+        var v = DIRS[d]; player.dir = v[2];
+        if (passable(player.x + v[0], player.y + v[1])) {
+          var ox = player.x, oy = player.y;
+          startMove(player, v[0], v[1], v[2]);
+          // companion follows to the player's previous tile
+          if (pal.x !== ox || pal.y !== oy) { var pdx = ox - pal.x, pdy = oy - pal.y; startMove(pal, pdx, pdy, pdy < 0 ? 'U' : pdy > 0 ? 'D' : pdx < 0 ? 'L' : 'R'); }
+        }
+      }
+    }
+    var arrived = advance(player); advance(pal);
+    if (arrived) {
+      steps++;
+      var door = doors[player.x + ',' + player.y];
+      if (door) { enterBuilding(door); return; }
+      if (get(player.x, player.y) === TILES.TALL && rnd() < 0.08) wildEncounter();
+    }
+    pressed = {};
+  }
+
+  function drawWorld() {
+    var pp = pixelPos(player);
+    cam.x = Math.max(0, Math.min(MW * T - W, pp.x - 72)); cam.y = Math.max(0, Math.min(MH * T - H, pp.y - 64));
+    var x0 = Math.floor(cam.x / T), y0 = Math.floor(cam.y / T), fr = (frame >> 5) & 1;
+    for (var y = y0; y <= y0 + 9; y++) for (var x = x0; x <= x0 + 10; x++) {
+      var t = get(x, y);
+      ctx.drawImage(tileCanvas, t * T, fr * T, T, T, x * T - cam.x, y * T - cam.y, T, T);
+    }
+    var ents = [];
+    npcs.forEach(function (n) { ents.push({ y: n.y * T, draw: function () { px(SPR[n.spr], ctx, n.x * T - cam.x, n.y * T - cam.y, n.pal); } }); });
+    var qp = pixelPos(pal);
+    ents.push({ y: qp.y, draw: function () {
+      var k = pal.dir === 'U' ? 'qU' : pal.dir === 'D' ? (pal.moving && pal.prog < 8 ? 'qD2' : 'qD') : 'qL';
+      px(SPR[k], ctx, qp.x - cam.x, qp.y - cam.y, null, pal.dir === 'R');
+    } });
+    ents.push({ y: pp.y + 1, draw: function () {
+      var walk = player.moving && player.prog < 8;
+      var k = player.dir === 'U' ? (walk ? 'pU2' : 'pU') : player.dir === 'D' ? (walk ? 'pD2' : 'pD') : (walk ? 'pL2' : 'pL');
+      px(SPR[k], ctx, pp.x - cam.x, pp.y - cam.y, null, player.dir === 'R');
+    } });
+    ents.sort(function (a, b) { return a.y - b.y; }).forEach(function (e) { e.draw(); });
+  }
+
+  // ============================================================
+  //  SCRIPTS (async sequences)
+  // ============================================================
+  function runScript(fn) {
+    busy = true;
+    Promise.resolve().then(fn).catch(function (e) { console.error(e); }).then(function () { busy = false; ui = null; pressed = {}; });
+  }
+  function exitBuilding(door) {
+    player.x = door.x; player.y = door.y + 1; player.dir = 'D'; player.moving = false;
+    pal.x = door.x; pal.y = door.y; pal.dir = 'D'; pal.moving = false;
+  }
+  function enterBuilding(door) {
+    var fn = { gym: gymScript, lab: labScript, house: houseScript, center: centerScript, mart: martScript }[door.evt];
+    runScript(function () { return fn(door).then(function () { scene = 'world'; exitBuilding(door); }); });
+  }
+
+  function labScript() {
+    return say("PROF. PENN: Ah, BIANCA! Welcome to my lab. Your TRAINER CARD is registered at the University of Pennsylvania.",
+      "BSE in Networked & Social Systems Engineering: Computer Science + Game Theory + Graph Theory. UPenn SEAS.",
+      "1 of 11 accepted into the NETS degree. Graduated Magna Cum Laude, top 20% of class! TA for Engineering Entrepreneurship.",
+      "Minor in Consumer Psychology & Marketing at the Wharton School.",
+      "PROF. PENN: Your journey? 10+ years of TPM and product across big tech, startups and scale-ups. You build from nothing and ship out of ambiguity.",
+      "Now leading Meta's AI Transformation Taskforce. Next stop: PRAGUE, CZ. Seeking EU roles; remote EST works too!",
+      "PROF. PENN: Press START to view your TRAINER CARD and the TOWN MAP. Go collect those 8 BADGES!");
+  }
+  function houseScript() {
+    return say("BIANCA's PC is on. A side quest is loaded: TRAINED ON VIBES.", "Teaching vibe coding and AI concepts, simplified for a non-technical audience, while building mini apps weekly.")
+      .then(function () { return choice("Open trainedonvibes.com in a new tab?"); })
+      .then(function (yes) { if (yes) window.open('https://trainedonvibes.com', '_blank', 'noopener'); return say(yes ? "BIANCA booted up the PC!" : "BIANCA logged off."); });
+  }
+  function centerScript() {
+    return say("NURSE: Welcome to the CONTACT CENTER! We'd be happy to connect you with BIANCA.")
+      .then(function () { return menu(['EMAIL', 'LINKEDIN', 'CANCEL'], { x: 88, y: 40, w: 72 }); })
+      .then(function (i) {
+        if (i === 0) { window.location.href = 'mailto:biancanpham@gmail.com'; return say("NURSE: Opening your email client... We hope to see you again!"); }
+        if (i === 1) { window.open('https://linkedin.com/in/biancapham', '_blank', 'noopener'); return say("NURSE: Buddy request sent to LinkedIn!"); }
+        return say("NURSE: Come back any time!");
+      });
+  }
+  var SKILLS = [
+    ['TPM', "TECHNICAL PROGRAM MANAGEMENT: SDLC, Roadmap Planning, Agile, Cross-Functional Team Mgmt, Stakeholder Mgmt, Risk Mgmt, Status Reporting, Release Mgmt, Process Optimization, Trello, Asana, Linear."],
+    ['AI OPS', "AI OPS & DEVELOPER PRODUCTIVITY: AI-Native Program Ops, AI Tool Evaluation & Adoption, Agent-run Workflows, AI Transformation, Change Mgmt & Enablement, Claude Code, Cursor, Manus, Vercel, Convex, Supabase, GitHub, Claude, ChatGPT, Gemini, Perplexity."],
+    ['PRODUCT', "PRODUCT & OPERATIONS: Competitive Analysis, Product Strategy, Roadmaps, PRDs, User Journeys & Stories, OKRs & Metrics, GTM Strategy, Client Mgmt, Onboarding Enterprises, Executive Storytelling, Prioritized Decision-Making."]
+  ];
+  function martScript() {
+    function loop() {
+      return say("CLERK: Welcome to the SKILL MART! Which items would you like to see?")
+        .then(function () { return menu(['TPM', 'AI OPS', 'PRODUCT', 'LEAVE'], { x: 80, y: 30, w: 80 }); })
+        .then(function (i) { if (i < 0 || i === 3) return say("CLERK: Thank you! Please come again."); return say(SKILLS[i][1], "CLERK: All of these are fully stocked. Anything else?").then(loop); });
+    }
+    return loop();
+  }
+  function wildEncounter() {
+    var enc = [["A wild BUZZWORD appeared!", "BIANCA used PLAIN ENGLISH! The wild BUZZWORD fled."], ["A wild SCOPE CREEP appeared!", "BIANCA used PRIORITIZED DECISION-MAKING! It's super effective!"], ["A wild STATUS MEETING appeared!", "BIANCA used AGENT-RUN REPORTING! The meeting was cancelled. Everyone cheered."]];
+    var e = enc[Math.floor(rnd() * enc.length)];
+    runScript(function () { beep(300, 0.1); return say(e[0], e[1]); });
+  }
+
+  // ---- gym battle ----
+  function gymScript(door) {
+    var g = GYMS.filter(function (x) { return x.key === door.key; })[0];
+    var already = !!badges[g.key];
+    return say("BIANCA entered the " + g.name + "!", "GYM LEADER " + g.leader + " wants to battle!")
+      .then(function () {
+        scene = 'battle'; beep(220, 0.2); beep(330, 0.2);
+        battle = { g: g, hp: g.moves.length, maxHp: g.moves.length, shown: g.moves.length, shake: 0 };
+        return say(g.leader + ": " + g.intro, g.leader + " sent out " + g.role + "!");
+      })
+      .then(function () {
+        var chain = Promise.resolve();
+        g.moves.forEach(function (m, i) {
+          chain = chain.then(function () { return say("BIANCA used " + m[0] + "!"); })
+            .then(function () { battle.hp = g.moves.length - i - 1; battle.shake = 12; beep(180, 0.15, 'sawtooth', 0.05); return wait(24); })
+            .then(function () { return say((i === g.moves.length - 1 ? "It's super effective! " : "") + m[1]); });
+        });
+        return chain;
+      })
+      .then(function () { return say(g.role + " fainted!", "BIANCA defeated GYM LEADER " + g.leader + "!", g.leader + ": " + g.outro); })
+      .then(function () {
+        badges[g.key] = true; persist(); jingle([523, 659, 784, 1047], 120);
+        return say("BIANCA received the " + g.badge + "!", g.badgeDesc + (already ? "" : " (" + badgeCount() + "/8 BADGES)"));
+      })
+      .then(function () { battle = null; if (badgeCount() === 8 && !already) return hallOfFame(); });
+  }
+  function hallOfFame() {
+    scene = 'hof'; jingle([523, 587, 659, 784, 1047, 1319], 140);
+    return say("All 8 BADGES collected! BIANCA entered the HALL OF FAME!", "TRAINER BIANCA PHAM. 10+ years TPM & Product. Big tech, startups, scale-ups.", "Now seeking EU roles from PRAGUE, CZ. Remote EST hours also work.")
+      .then(function () { return choice("Send BIANCA a message?"); })
+      .then(function (yes) { if (yes) window.location.href = 'mailto:biancanpham@gmail.com'; return say(yes ? "Opening your email client. Thank you for playing!" : "Thank you for playing! Waddle on."); });
+  }
+
+  function drawBattle() {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(0, 0, W, H);
+    var g = battle.g, sx = battle.shake > 0 ? (battle.shake-- % 2 ? 2 : -2) : 0;
+    // enemy sprite (gym leader) top-right
+    px(SPR.leader, ctx, 104 + sx, 6, [0, 1, 2, 3], false, 3);
+    // enemy name + hp
+    text(g.role.slice(0, 18), 4, 6); text(g.dates, 4, 16, 1);
+    text('HP:', 8, 27); ctx.fillStyle = PAL[0]; ctx.fillRect(28, 26, 66, 8); ctx.fillStyle = PAL[3]; ctx.fillRect(29, 27, 64, 6);
+    var hpw = Math.round(62 * battle.hp / battle.maxHp); ctx.fillStyle = PAL[hpw > 20 ? 1 : 0]; ctx.fillRect(30, 28, hpw, 4);
+    ctx.fillStyle = PAL[0]; ctx.fillRect(4, 36, 96, 1);
+    // player's companion (back view) bottom-left
+    px(SPR.qU, ctx, 8, 46, null, false, 3);
+    text('PENGU', 88, 52); text('BIANCA', 88, 62, 1);
+    ctx.fillStyle = PAL[0]; ctx.fillRect(60, 94, 96, 1);
+  }
+
+  // ---- start menu, trainer card, town map ----
+  function openStart() {
+    runScript(function () {
+      return menu(['TRAINER CARD', 'TOWN MAP', 'GUIDE', 'CONTACT', 'EXIT'], { x: 40, y: 8, w: 116 }).then(function (i) {
+        if (i === 0) return showScreen('card');
+        if (i === 1) return townMap();
+        if (i === 2) { document.getElementById('guide').scrollIntoView({ behavior: 'smooth' }); return; }
+        if (i === 3) return centerScript();
+      });
+    });
+  }
+  function showScreen(name) {
+    scene = name;
+    return new Promise(function (res) { ui = { kind: 'screen', done: res }; }).then(function () { scene = 'world'; });
+  }
+  function townMap() {
+    var items = GYMS.map(function (g) { return (badges[g.key] ? '✓ ' : '  ') + g.leader.slice(0, 12); }).concat(['  HOME']);
+    return menu(items, { x: 8, y: 4, w: 144, title: 'FLY TO...' }).then(function (i) {
+      if (i < 0) return;
+      var d = i === GYMS.length ? HOUSE : GYMS[i].door;
+      return say("BIANCA used FLY!").then(function () { exitBuilding(d); beep(880, 0.1); beep(1320, 0.1); });
+    });
+  }
+  function drawCard() {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(0, 0, W, H); box(0, 0, W, H);
+    text('TRAINER CARD', 8, 8);
+    text('NAME/BIANCA', 8, 24); text('IDNo/2016', 8, 36); text('TIME/10+ YRS', 8, 48); text('$/300M ARR', 8, 60);
+    px(SPR.pD, ctx, 112, 22, null, false, 2);
+    text('BADGES', 8, 78);
+    for (var i = 0; i < 8; i++) {
+      var g = GYMS[i], bx = 8 + i * 18, by = 90;
+      if (badges[g.key]) px(BADGE[i], ctx, bx, by, null, false, 2);
+      else { ctx.fillStyle = PAL[2]; ctx.fillRect(bx + 2, by + 2, 12, 12); }
+    }
+    text(badgeCount() + '/8 GYMS CLEARED', 8, 112, 1);
+    text('B: BACK', 100, 128, 1);
+  }
+  function drawHof() {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(0, 0, W, H);
+    text('HALL OF FAME', 32, 8);
+    px(SPR.pD, ctx, 40, 24, null, false, 3); px(SPR.qD, ctx, 96, 30, null, false, 3);
+    for (var i = 0; i < 8; i++) px(BADGE[i], ctx, 8 + i * 18, 80, null, false, 2);
+  }
+
+  // ============================================================
+  //  INTRO
+  // ============================================================
+  function intro() {
+    scene = 'intro';
+    runScript(function () {
+      return say("PROF. PENN: Hello there! Welcome to the world of BIANCA PHAM!",
+        "This world is inhabited by GYMS. Each GYM is a job BIANCA has held. Beat all 8 and collect the BADGES!",
+        "Use the D-PAD to walk, A to talk or read signs, and START for your TRAINER CARD and the TOWN MAP.",
+        "Your companion PENGU will follow you. Your very own resume legend is about to unfold!")
+        .then(function () { scene = 'world'; seenIntro = true; persist(); });
+    });
+  }
+  function drawIntro() {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(0, 0, W, H);
+    px(SPR.prof, ctx, 56, 20, null, false, 3);
+    text('PROF. PENN', 40, 74);
+  }
+
+  // ============================================================
+  //  MAIN LOOP
+  // ============================================================
+  function update() {
+    frame++;
+    if (ui && ui.kind === 'screen') { if (pressed.b || pressed.a || pressed.start) { var d = ui.done; ui = null; pressed = {}; d(); } return; }
+    if (ui) { updateUI(); pressed = {}; return; }
+    if (scene === 'world') updateWorld();
+    pressed = {};
+  }
+  function render() {
+    ctx.fillStyle = PAL[3]; ctx.fillRect(0, 0, W, H);
+    if (scene === 'world') drawWorld();
+    else if (scene === 'battle') drawBattle();
+    else if (scene === 'card') drawCard();
+    else if (scene === 'hof') drawHof();
+    else if (scene === 'intro') drawIntro();
+    drawUI();
+  }
+  function tick() { update(); render(); }
+  var raf;
+  function loop() { tick(); raf = requestAnimationFrame(loop); }
+
+  var fontReady = (document.fonts && document.fonts.load) ? document.fonts.load('8px "Press Start 2P"') : Promise.resolve();
+  fontReady.catch(function () {}).then(function () {
+    if (!seenIntro) intro();
+    loop();
+  });
+
+  // debug/testing hooks
+  window.__game = { tick: tick, down: down, up: up, press: function (k) { pressed[k] = true; }, get: function () { return { scene: scene, ui: ui && ui.kind, player: player, pal: pal, badges: badges, busy: busy }; }, teleport: function (x, y) { player.x = x; player.y = y; pal.x = x; pal.y = y + 1; }, gyms: GYMS, doors: doors, map: map, MW: MW, MH: MH, tiles: tileCanvas, snapshot: function () { return canvas.toDataURL(); }, pause: function () { cancelAnimationFrame(raf); }, resume: function () { loop(); }, drawMap: function () {
+    var c = document.createElement('canvas'); c.width = MW * T; c.height = MH * T; var x2 = c.getContext('2d');
+    for (var y = 0; y < MH; y++) for (var x = 0; x < MW; x++) x2.drawImage(tileCanvas, get(x, y) * T, 0, T, T, x * T, y * T, T, T);
+    npcs.forEach(function (n) { px(SPR[n.spr], x2, n.x * T, n.y * T, n.pal); });
+    px(SPR.pD, x2, player.x * T, player.y * T); px(SPR.qD, x2, pal.x * T, pal.y * T);
+    return c.toDataURL();
+  } };
+})();
+</script>
+</body>
+</html>
