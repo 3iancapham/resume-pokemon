@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bianca Pham · User Lookup</title>
+<meta name="description" content="Bianca Pham's résumé as a classic 2003-era virtual pet site: user lookup, employment agency, trophy cabinet, and pets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #ffcc00; --yellow-2: #ffe680; --yellow-dark: #e6a800;
+    --blue: #003399; --blue-2: #1a4fc4; --blue-light: #d9e4ff; --blue-pale: #eef3ff;
+    --ink: #000; --grey: #666; --line: #003399; --bg: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e8eefc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Crect width='8' height='8' fill='%23e8eefc'/%3E%3Crect width='1' height='1' fill='%23d5dff5'/%3E%3C/svg%3E"); font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 12px; color: var(--ink); line-height: 1.45; }
+  a { color: var(--blue); }
+  a:hover { color: #cc0000; }
+  .page { width: min(920px, calc(100% - 16px)); margin: 10px auto; background: #fff; border: 1px solid var(--blue); box-shadow: 2px 2px 0 #b8c7f0; }
+
+  /* ---- banner ---- */
+  .banner { background: linear-gradient(#fff2b3, var(--yellow) 60%, #f2bf00); border-bottom: 2px solid var(--blue); padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .logo { font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif; font-weight: 700; font-size: 34px; color: var(--blue); letter-spacing: -.5px; text-shadow: 2px 2px 0 #fff, 3px 3px 0 #9fb0e0; line-height: 1; }
+  .logo small { display: block; font: 700 10px Verdana, sans-serif; color: #7a5a00; letter-spacing: 2px; text-shadow: none; margin-top: 3px; text-transform: uppercase; }
+  .topnav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topnav a { display: inline-block; background: linear-gradient(#5b7fdc, var(--blue)); color: #fff; text-decoration: none; font-weight: bold; font-size: 11px; padding: 5px 10px; border: 1px solid #001f66; border-radius: 4px; text-shadow: 0 1px 0 #001f66; }
+  .topnav a:hover { background: linear-gradient(#ff9d1a, #e66a00); border-color: #8a3d00; color: #fff; }
+  .ticker { background: var(--blue); color: var(--yellow); font-size: 11px; padding: 4px 14px; font-weight: bold; white-space: nowrap; overflow: hidden; }
+  .ticker span { display: inline-block; animation: tick 28s linear infinite; padding-left: 100%; }
+  @keyframes tick { to { transform: translateX(-100%); } }
+
+  /* ---- layout ---- */
+  .cols { display: grid; grid-template-columns: 172px 1fr; }
+  .side { background: var(--blue-pale); border-right: 1px solid var(--blue); padding: 10px 8px; }
+  .main { padding: 12px 14px 20px; min-width: 0; }
+  .sbox { background: #fff; border: 1px solid var(--blue); margin-bottom: 10px; }
+  .sbox h4 { margin: 0; background: linear-gradient(#ffe066, var(--yellow)); border-bottom: 1px solid var(--blue); font-size: 11px; padding: 4px 6px; text-transform: uppercase; letter-spacing: .5px; }
+  .sbox .in { padding: 6px; font-size: 11px; }
+  .sbox ul { list-style: none; margin: 0; padding: 0; }
+  .sbox li { padding: 3px 0 3px 14px; border-bottom: 1px dotted #b8c7f0; position: relative; }
+  .sbox li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 6px; height: 6px; background: var(--yellow); border: 1px solid var(--blue); transform: rotate(45deg); }
+  .sbox li:last-child { border-bottom: 0; }
+  .np { font-size: 13px; font-weight: bold; color: #006600; }
+  .avatar { display: block; margin: 4px auto 6px; width: 90px; height: 90px; }
+  .ad { text-align: center; font-size: 10px; color: var(--grey); }
+  .ad .adbox { background: linear-gradient(#fff, #ffe680); border: 1px dashed var(--yellow-dark); padding: 8px 6px; margin-top: 4px; color: #000; font-weight: bold; font-size: 11px; }
+  .ad .adbox b { color: #cc0000; display: block; font-size: 12px; }
+
+  /* ---- content tables ---- */
+  h2.hdr { margin: 0 0 8px; background: linear-gradient(#ffe066, var(--yellow)); border: 1px solid var(--blue); font-size: 14px; padding: 5px 10px; display: flex; justify-content: space-between; align-items: center; }
+  h2.hdr small { font-weight: normal; font-size: 10px; color: #5a4200; }
+  .section { margin-bottom: 18px; }
+  table.t { width: 100%; border-collapse: collapse; border: 1px solid var(--blue); font-size: 11px; }
+  table.t th { background: var(--blue-light); text-align: left; padding: 5px 7px; border: 1px solid #9fb0e0; white-space: nowrap; width: 130px; }
+  table.t td { padding: 5px 7px; border: 1px solid #9fb0e0; vertical-align: top; }
+  table.t tr:nth-child(even) td { background: #f7f9ff; }
+  .lookup { display: grid; grid-template-columns: 1fr 200px; gap: 12px; }
+  .shield { border: 1px solid var(--blue); background: linear-gradient(#fffbe6, #fff0b3); text-align: center; padding: 10px 8px; }
+  .shield .name { font: 700 18px "Fredoka", sans-serif; color: var(--blue); }
+  .shield .lvl { display: inline-block; background: var(--blue); color: var(--yellow); font-weight: bold; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin: 4px 0 6px; }
+  .shield .stat { display: flex; justify-content: space-between; font-size: 10px; border-top: 1px dotted #c9b45a; padding: 3px 0; }
+  .btnrow { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .btn { display: inline-block; background: linear-gradient(#fff, #d9e4ff); border: 1px solid var(--blue); color: var(--blue); font-weight: bold; font-size: 11px; padding: 4px 9px; text-decoration: none; border-radius: 3px; box-shadow: 1px 1px 0 #9fb0e0; }
+  .btn:hover { background: linear-gradient(#fff, var(--yellow-2)); color: #000; }
+
+  /* newspaper */
+  .times { border: 2px solid #000; padding: 12px 14px; background: #fffdf5; font-family: Georgia, "Times New Roman", serif; }
+  .times .mast { text-align: center; border-bottom: 3px double #000; margin-bottom: 8px; padding-bottom: 6px; }
+  .times .mast b { font: 700 26px "Fredoka", Georgia, serif; letter-spacing: 1px; }
+  .times .mast small { display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+  .times h3 { margin: 0 0 6px; font-size: 17px; line-height: 1.2; }
+  .times .cols2 { column-count: 2; column-gap: 20px; column-rule: 1px solid #ccc; font-size: 12px; }
+  .times p { margin: 0 0 8px; }
+  .times p:first-of-type::first-letter { font-size: 30px; float: left; line-height: .85; padding: 3px 4px 0 0; font-weight: bold; }
+  .stamp { display: inline-block; border: 2px solid #cc0000; color: #cc0000; font: bold 11px Verdana, sans-serif; padding: 2px 6px; transform: rotate(-3deg); letter-spacing: 1px; }
+
+  /* jobs */
+  .job { border: 1px solid var(--blue); margin-bottom: 8px; background: #fff; }
+  .job summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 7px 9px; background: linear-gradient(#fff, #f0f4ff); }
+  .job summary::-webkit-details-marker { display: none; }
+  .job[open] summary { background: linear-gradient(#fff6cc, var(--yellow-2)); border-bottom: 1px solid var(--blue); }
+  .job .coupon { width: 34px; height: 34px; border: 1px solid #7a5a00; background: linear-gradient(#fff, var(--yellow)); display: grid; place-items: center; font: bold 9px Verdana, sans-serif; color: #7a5a00; text-align: center; line-height: 1; }
+  .job .title { font-weight: bold; font-size: 12px; }
+  .job .title small { display: block; font-weight: normal; color: var(--grey); font-size: 10px; margin-top: 2px; }
+  .job .reward { text-align: right; font-size: 10px; color: #006600; font-weight: bold; white-space: nowrap; }
+  .job .reward em { display: block; color: var(--grey); font-style: normal; font-weight: normal; }
+  .job .body { padding: 8px 10px 10px 54px; font-size: 11px; }
+  .job ul { margin: 0; padding-left: 16px; }
+  .job li { margin: 4px 0; }
+  .job b.hi { background: #fff2b3; }
+  .job .status { display: inline-block; background: #006600; color: #fff; font-size: 9px; font-weight: bold; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  .hint { font-size: 10px; color: var(--grey); margin: 0 0 8px; }
+
+  /* trophies */
+  .cabinet { border: 4px solid #8a5a2a; background: linear-gradient(#5a3a1a, #3a2410); padding: 10px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .trophy { background: linear-gradient(#fff8e0, #f2dfa0); border: 1px solid #7a5a00; text-align: center; padding: 8px 6px; font-size: 10px; }
+  .trophy svg { width: 48px; height: 52px; display: block; margin: 0 auto 4px; }
+  .trophy b { display: block; font-size: 11px; color: var(--blue); }
+  .trophy i { display: block; font-style: normal; color: #7a5a00; font-weight: bold; margin: 1px 0 3px; }
+
+  /* pets */
+  .pets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pet { border: 1px solid var(--blue); background: #fff; }
+  .pet .pic { background: linear-gradient(#e8f4ff, #cfe6ff); border-bottom: 1px solid var(--blue); text-align: center; padding: 8px; }
+  .pet .pic svg { width: 110px; height: 100px; }
+  .pet .nm { background: var(--yellow); font-weight: bold; padding: 4px 8px; border-bottom: 1px solid var(--blue); font-size: 12px; display: flex; justify-content: space-between; }
+  .pet .nm small { font-weight: normal; color: #5a4200; }
+  .pet table { width: 100%; border-collapse: collapse; font-size: 10px; }
+  .pet td { padding: 3px 6px; border-bottom: 1px dotted #b8c7f0; }
+  .pet td:first-child { color: var(--grey); width: 62px; }
+  .bar { height: 8px; background: #e0e0e0; border: 1px solid #999; }
+  .bar i { display: block; height: 100%; background: linear-gradient(#6bd26b, #2a8a2a); }
+  .pet .items { padding: 6px 8px 8px; font-size: 10px; }
+  .pet .items span { display: inline-block; border: 1px solid #9fb0e0; background: var(--blue-pale); padding: 1px 5px; margin: 2px 2px 2px 0; border-radius: 2px; }
+  .pet .items span.rare { background: #fff2b3; border-color: var(--yellow-dark); font-weight: bold; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .guild { border: 1px solid var(--blue); background: linear-gradient(#f3e8ff, #e6d5ff); padding: 10px; font-size: 11px; }
+  .guild b { color: #5a1a9a; }
+  .footer { border-top: 2px solid var(--blue); background: var(--blue-pale); font-size: 10px; color: var(--grey); text-align: center; padding: 8px 12px; }
+  .footer a { margin: 0 4px; }
+
+  @media (max-width: 720px) {
+    .cols { grid-template-columns: 1fr; }
+    .side { border-right: 0; border-bottom: 1px solid var(--blue); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .side .sbox { margin: 0; }
+    .lookup, .two, .pets { grid-template-columns: 1fr; }
+    .cabinet { grid-template-columns: 1fr 1fr; }
+    .times .cols2 { column-count: 1; }
+    .job summary { grid-template-columns: 34px 1fr; }
+    .job .reward { grid-column: 2; text-align: left; }
+    .job .body { padding-left: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="banner">
+    <div class="logo">Biancapets<small>Virtual Résumé Site · est. 2016</small></div>
+    <nav class="topnav">
+      <a href="#lookup">User Lookup</a><a href="#times">Neopian Times</a><a href="#jobs">Employment Agency</a><a href="#trophies">Trophies</a><a href="#pets">Pets</a><a href="mailto:biancanpham@gmail.com">Neomail</a>
+    </nav>
+  </div>
+  <div class="ticker"><span>★ NEWS: biancapham has completed 8 jobs at the Employment Agency! ★ Trophy Cabinet updated: 6 trophies on display ★ biancapham is relocating to Prague, CZ and is accepting Neofriend requests from EU employers ★ Wheel of Excitement: "Roadmap cycles accelerated from 6 months to monthly!" ★</span></div>
+
+  <div class="cols">
+    <!-- ---------- sidebar ---------- -->
+    <aside class="side">
+      <div class="sbox">
+        <h4>biancapham</h4>
+        <div class="in" style="text-align:center">
+          <svg class="avatar" viewBox="0 0 100 100" aria-label="Pet avatar">
+            <ellipse cx="50" cy="90" rx="30" ry="5" fill="#b8c7f0"/>
+            <ellipse cx="50" cy="58" rx="30" ry="28" fill="#ffcc00" stroke="#7a5a00" stroke-width="2"/>
+            <ellipse cx="30" cy="30" rx="9" ry="16" fill="#ffcc00" stroke="#7a5a00" stroke-width="2" transform="rotate(-20 30 30)"/>
+            <ellipse cx="70" cy="30" rx="9" ry="16" fill="#ffcc00" stroke="#7a5a00" stroke-width="2" transform="rotate(20 70 30)"/>
+            <ellipse cx="50" cy="66" rx="16" ry="12" fill="#fff5cc"/>
+            <circle cx="40" cy="52" r="5" fill="#fff"/><circle cx="60" cy="52" r="5" fill="#fff"/>
+            <circle cx="41" cy="53" r="2.5" fill="#000"/><circle cx="61" cy="53" r="2.5" fill="#000"/>
+            <path d="M44 62 q6 5 12 0" stroke="#7a5a00" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="35" cy="84" rx="7" ry="4" fill="#ffcc00" stroke="#7a5a00" stroke-width="2"/><ellipse cx="65" cy="84" rx="7" ry="4" fill="#ffcc00" stroke="#7a5a00" stroke-width="2"/>
+          </svg>
+          <div class="np">300,000,000 NP</div>
+          <div style="font-size:10px;color:#666">Neopoints (annual recurring)</div>
+          <div style="margin-top:4px"><b>Level:</b> 10+ yrs &nbsp; <b>Jobs:</b> 8</div>
+        </div>
+      </div>
+      <div class="sbox">
+        <h4>Explore</h4>
+        <div class="in"><ul>
+          <li><a href="#lookup">User Lookup</a></li>
+          <li><a href="#times">Neopian Times</a></li>
+          <li><a href="#jobs">Employment Agency</a></li>
+          <li><a href="#trophies">Trophy Cabinet</a></li>
+          <li><a href="#pets">My Pets (Skills)</a></li>
+          <li><a href="#school">Training School</a></li>
+          <li><a href="#guild">Guild</a></li>
+          <li><a href="mailto:biancanpham@gmail.com">Send Neomail</a></li>
+          <li><a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">Add Neofriend</a></li>
+        </ul></div>
+      </div>
+      <div class="sbox ad">
+        <h4>Advertisement</h4>
+        <div class="in">
+          <div class="adbox"><b>NOW HIRING?</b> One AI-native TPM lead, relocating to Prague. Remote EST OK. <a href="mailto:biancanpham@gmail.com">Click here!</a></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ---------- main ---------- -->
+    <main class="main">
+      <section class="section" id="lookup">
+        <h2 class="hdr">User Lookup: biancapham <small>Last seen: shipping something</small></h2>
+        <div class="lookup">
+          <table class="t">
+            <tr><th>Name</th><td><b>Bianca Pham</b></td></tr>
+            <tr><th>Title</th><td>Technical Program &amp; Product Management · AI-Native Transformation &amp; Operations Leader</td></tr>
+            <tr><th>Current Job</th><td>Senior AI Technical Program Manager, Meta (Forward Deployed Engineering)</td></tr>
+            <tr><th>Member Since</th><td>June 2016</td></tr>
+            <tr><th>Location</th><td>New York, US → <b>Prague, CZ</b> (relocating for family; can work remote EST as a US Digital Nomad)</td></tr>
+            <tr><th>Neomail</th><td><a href="mailto:biancanpham@gmail.com">biancanpham@gmail.com</a></td></tr>
+            <tr><th>Neofriends</th><td><a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">linkedin.com/in/biancapham</a></td></tr>
+            <tr><th>Seeking</th><td>New opportunities in the EU: transforming operations and re-thinking strategy with AI systems thinking to accelerate execution.</td></tr>
+          </table>
+          <div class="shield">
+            <div class="name">biancapham</div>
+            <div class="lvl">LEVEL 10+ · TPM &amp; PRODUCT</div>
+            <div class="stat"><span>Jobs completed</span><b>8</b></div>
+            <div class="stat"><span>Trophies</span><b>6</b></div>
+            <div class="stat"><span>Pets</span><b>3</b></div>
+            <div class="stat"><span>ARR driven (H2 2025)</span><b>$300M</b></div>
+            <div class="stat"><span>Insight volume</span><b>7×</b></div>
+            <div class="stat"><span>Mint transactions</span><b>1M+</b></div>
+            <div class="btnrow"><a class="btn" href="mailto:biancanpham@gmail.com">Neomail</a><a class="btn" href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">Neofriend</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="times">
+        <h2 class="hdr">The Neopian Times <small>Special Report</small></h2>
+        <div class="times">
+          <div class="mast"><b>The Neopian Times</b><small>Issue 2026 · Big Tech · Startups · Scale-ups</small></div>
+          <h3>Local User Leads Meta's AI Transformation Taskforce, Packs Bags for Prague</h3>
+          <div class="cols2">
+            <p>Technical Program Management Lead with 10+ years spanning both TPM and product management across big tech, early-stage startups, and high-growth scale-ups. Reputation for building from nothing, operating out of ambiguity, executing in fast-paced environments, and creating successful outcomes in short timeframes.</p>
+            <p>Currently leading Meta's AI Transformation Taskforce and Market AI Acceleration program within the Forward Deployed Engineering org, with the key objective of transitioning the org to AI-native operations, habits, and skills.</p>
+            <p><b>Seeking:</b> new opportunities in the EU. "In my next role I want to apply my experience to identify opportunities to transform operations and re-think strategy with AI systems thinking, to accelerate execution toward your goals." <span class="stamp">ACCEPTING NEOFRIENDS</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="jobs">
+        <h2 class="hdr">Employment Agency: Jobs Completed <small>8 of 8 · click a job for the full report</small></h2>
+        <p class="hint">Each coupon is a completed job. Rewards are paid in results, not Neopoints.</p>
+
+        <details class="job" open>
+          <summary><div class="coupon">SUPER<br>JOB</div><div class="title">Senior AI Technical Program Manager<span class="status">CURRENT</span><small>Meta · Forward Deployed Engineering Team · New York, US</small></div><div class="reward">+$300M ARR<em>07/2025 – Present</em></div></summary>
+          <div class="body"><ul>
+            <li>Elected to the AI Native Taskforce to transform the Forward Deployed Engineering org into an AI-native operating org. Led AI upskilling across the TPM organization and re-designed FDE program operations on AI-native infrastructure: AI-maintained team knowledge bases and agent-run automations for project tracking and status reporting, <b class="hi">cutting reporting time by 50%</b> and accelerating roadmapping cycles <b class="hi">from every 6 months to monthly</b>.</li>
+            <li>Tapped to launch Market AI Acceleration, equipping FDEs with AI-enabled tools to accelerate new market opportunities. Built and shipped the flagship AI-powered market insights tool (Claude Code, Manus, internal MCPs) converting client-interaction insights into structured, sized product opportunities: <b class="hi">7× inbound insight volume</b>, quality <b class="hi">32% → 90%</b>, potential TAM <b class="hi">$74B → $174B</b>. Adopted org-wide by FDE and expanding to Sales.</li>
+            <li>Managed delivery of the Retail Advertiser Solution portfolio across 20+ cross-functional projects driving <b class="hi">+$300M ARR in H2 2025</b> via Omnichannel, Retail Media Network, and CPG Brand advertiser solutions.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#7</div><div class="title">Co-Founder &amp; CPO<small>Stealth AI Startup · AI Content Operating System · California, US</small></div><div class="reward">1,000+ waitlist<em>07/2023 – 07/2025</em></div></summary>
+          <div class="body"><ul>
+            <li>Owned product end-to-end: market research, <b class="hi">50+ user interviews</b> to validate prototypes, early-stage pricing model and positioning, growing the pre-launch waitlist to <b class="hi">1,000+ users</b>.</li>
+            <li>Taught myself Claude Code, Cursor, and Figma and shipped production code alongside my technical co-founder (React Native, Firebase, Vercel, AI APIs), going from non-technical to contributing directly to the full-stack build.</li>
+            <li>Led fundraising and investor communications: narrative, deck, model, pitches. Interest from South Park Commons and Antler VC.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#6</div><div class="title">Principal Product Manager<small>HyperMint (acquired by MoonPay) · Web3 Enterprise Team · Lisbon, Portugal</small></div><div class="reward">1M+ mints<em>08/2022 – 07/2023</em></div></summary>
+          <div class="body"><ul>
+            <li>Defined the product vision and roadmap for HyperMint, an enterprise-grade minting platform enabling non-Web3 brands to leverage blockchain utility for customer engagement.</li>
+            <li>Drove measurable success as a 0 → 1 product: <b class="hi">$900K in primary sales</b>, <b class="hi">Top 5 Minters on Polygon</b>, and <b class="hi">1M+ mint transactions</b> in the first year.</li>
+            <li>Managed strategic enterprise partnerships, leading to adoption by <b class="hi">20+ brands</b> including Alo Yoga, Nike, and Universal Studios.</li>
+            <li>Defined the vision and led development of MoonPay's Web3 dashboard bundling HyperMint, NFT Checkout, and Crypto On/Off Ramps into an all-in-one launchpad for global enterprises.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#5</div><div class="title">Client Group Product Manager<small>Palm NFT Studio (acquired by Candy Digital) · California, US</small></div><div class="reward">~600K users<em>01/2022 – 08/2022</em></div></summary>
+          <div class="body"><ul>
+            <li>Developed the product vision and feature roadmap for the DC Bat Cowl NFT Community, integrating fan base, utility, and storytelling, earning a <b class="hi">Webby Award nomination</b> for Best Use of Web3 Technology.</li>
+            <li>Directed product strategy, execution, and GTM for DC Comics' first NFT marketplace, growing the Palm Blockchain ecosystem by <b class="hi">~600,000 new users</b>. Recognized by Ad Age as a Top 5 Metaverse Activation.</li>
+            <li>Managed enterprise customers (Microsoft Xbox, Universal Music Group UK, Archie Comics) to launch a white-labeled NFT marketplace with gamification and engagement features.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#4</div><div class="title">Director of Product Management<small>Nike · Tech Innovation Team (restructured after RTFKT acquisition) · Oregon, US</small></div><div class="reward">.SWOOSH origins<em>02/2021 – 07/2021</em></div></summary>
+          <div class="body"><ul>
+            <li>First Director of Product recruited to build Nike's emerging-technology innovation lab, shaping the product operating model and forming Nike's first technology product strategy across AI/ML, Metaverse, and Crypto/NFTs.</li>
+            <li>Led the 0 → 1 development of Nike's patented Cryptokicks technology, delivering the first proof-of-concept and beta for Nike's first digital sneaker marketplace, the foundational work now known as <b class="hi">.SWOOSH</b>.</li>
+            <li>Founding member of the Nike Metaverse Studio, defining the vision to position Nike as a category leader in virtual retail and next-generation social commerce.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#3</div><div class="title">Senior Engineering PM<small>Apple · Apple Pay Team · Cupertino, US</small></div><div class="reward">Apple Card launch<em>12/2019 – 02/2021</em></div></summary>
+          <div class="body"><ul>
+            <li>Created Apple Pay's official beta testing launch-readiness program, enabling early feature validation, surfacing launch blockers and edge cases, and identifying new product opportunities. Established with the launch of <b class="hi">Apple Card</b>; now runs for every release.</li>
+            <li>Drove cross-functional execution across Product, Engineering, UX, Legal, Ops, Marketing/PR, DevOps, and external partners (Disney, LA/DC/NY Metro, Japan PASMO) for smooth launches of major Apple Pay products.</li>
+            <li>Reported weekly to the Head of Apple Pay with synthesized user insights, trends, and critical pre-launch issues to manage external risk and PR considerations.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#2</div><div class="title">Engineering PM → Senior Engineering PM<small>Apple · Applied Machine Learning Team · Sunnyvale, US</small></div><div class="reward">Promoted<em>10/2017 – 12/2019</em></div></summary>
+          <div class="body"><ul>
+            <li>Managed Apple's Operations, Logistics, and Supply Chain ML program portfolio and strategy: signature-required delivery prediction, recommended package sizing, and delivery-quote modeling.</li>
+            <li>Drove execution of <b class="hi">GDPR-compliant</b> data engineering solutions across Apple's ML platforms (Hadoop, Cassandra), enabling fast user-data access and deletion, resulting in executive recognition.</li>
+            <li>Led the ML Infrastructure PM team with Data Science: big-data batch pipelines, real-time querying, Spark-based data conversion, enhanced notebooks, and support for Random Forest, TensorFlow, and XGBoost models.</li>
+          </ul></div>
+        </details>
+
+        <details class="job">
+          <summary><div class="coupon">JOB<br>#1</div><div class="title">Technology Analyst<small>JPMorgan Chase &amp; Co. · Big Data Analytics Team · New York, US</small></div><div class="reward">Millions of users<em>06/2016 – 09/2017</em></div></summary>
+          <div class="body"><ul>
+            <li>Directed end-to-end delivery of big-data initiatives across legal, product, data science, DevOps, data architecture, and engineering teams.</li>
+            <li>Delivered data solutions that cleansed and enriched merchant transaction data, powering personalized, machine-learned insights in the Chase Mobile App and improving next-best-action recommendations across <b class="hi">millions of users</b>.</li>
+          </ul></div>
+        </details>
+      </section>
+
+      <section class="section" id="trophies">
+        <h2 class="hdr">Trophy Cabinet <small>6 trophies</small></h2>
+        <div class="cabinet">
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#7a5a00" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#7a5a00"/><text x="24" y="17" text-anchor="middle" font-size="9" font-weight="bold" fill="#7a5a00">1st</text></svg><b>Outstanding Achievement</b><i>Meta · Top 20%</i>1 of 2 in the FDE org selected by leadership for an "Outstanding" rating in year one.</div>
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#7a5a00" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#7a5a00"/><text x="24" y="17" text-anchor="middle" font-size="9" font-weight="bold" fill="#7a5a00">1st</text></svg><b>Achievement Award</b><i>Apple</i>Awarded by senior leadership for excellent execution of GDPR for the Applied ML team.</div>
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#7a5a00" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#7a5a00"/><text x="24" y="17" text-anchor="middle" font-size="9" font-weight="bold" fill="#7a5a00">GTM</text></svg><b>Web3 GTM for Enterprises</b><i>MoonPay</i>Closed 5+ large enterprises into Web3: Nike SWOOSH, Universal, Alo Yoga, FOX, FaZe Clan and more.</div>
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#e0e0e0" stroke="#555" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#555" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#e0e0e0" stroke="#555" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#555"/><text x="24" y="17" text-anchor="middle" font-size="8" font-weight="bold" fill="#555">NOM</text></svg><b>Webby Nomination</b><i>Palm NFT Studio</i>Best Use of Web3 Technology for the DC Comics Marketplace.</div>
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#7a5a00" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#ffd54a" stroke="#7a5a00" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#7a5a00"/><text x="24" y="17" text-anchor="middle" font-size="9" font-weight="bold" fill="#7a5a00">10%</text></svg><b>Leadership Circles</b><i>Nike · Top 10–15%</i>Elected a leadership protégé within 3 months; rated "Highly Successful."</div>
+          <div class="trophy"><svg viewBox="0 0 48 52"><path d="M12 4h24v14a12 12 0 0 1-24 0z" fill="#d9a066" stroke="#6a3a10" stroke-width="2"/><path d="M12 8H5v6a8 8 0 0 0 7 8M36 8h7v6a8 8 0 0 1-7 8" fill="none" stroke="#6a3a10" stroke-width="2"/><rect x="20" y="30" width="8" height="8" fill="#d9a066" stroke="#6a3a10" stroke-width="2"/><rect x="12" y="38" width="24" height="8" rx="2" fill="#6a3a10"/><text x="24" y="17" text-anchor="middle" font-size="9" font-weight="bold" fill="#6a3a10">KEY</text></svg><b>Key of Recognition</b><i>JPMorgan</i>1 of 5 Keys of Recognition for the product's consumer experience.</div>
+        </div>
+      </section>
+
+      <section class="section" id="pets">
+        <h2 class="hdr">My Pets <small>skills, grouped by species</small></h2>
+        <div class="pets">
+          <div class="pet">
+            <div class="pic"><svg viewBox="0 0 110 100"><ellipse cx="55" cy="92" rx="30" ry="5" fill="#9fb0e0"/><ellipse cx="55" cy="58" rx="32" ry="28" fill="#3d7cff" stroke="#0c2a80" stroke-width="2"/><path d="M30 38 l-6 -22 l16 12z M80 38 l6 -22 l-16 12z" fill="#3d7cff" stroke="#0c2a80" stroke-width="2"/><ellipse cx="55" cy="66" rx="17" ry="12" fill="#cfe0ff"/><circle cx="44" cy="52" r="5" fill="#fff"/><circle cx="66" cy="52" r="5" fill="#fff"/><circle cx="45" cy="53" r="2.5"/><circle cx="67" cy="53" r="2.5"/><path d="M49 62 q6 4 12 0" stroke="#0c2a80" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="86" rx="7" ry="4" fill="#3d7cff" stroke="#0c2a80" stroke-width="2"/><ellipse cx="70" cy="86" rx="7" ry="4" fill="#3d7cff" stroke="#0c2a80" stroke-width="2"/></svg></div>
+            <div class="nm">Tepem <small>the Programma</small></div>
+            <table><tr><td>Level</td><td>10+</td></tr><tr><td>Strength</td><td><div class="bar"><i style="width:96%"></i></div></td></tr><tr><td>Defence</td><td><div class="bar"><i style="width:90%"></i></div></td></tr><tr><td>Mood</td><td>Delivering</td></tr></table>
+            <div class="items"><b>Technical Program Management:</b><br><span>SDLC</span><span>Roadmap Planning</span><span>Agile</span><span>Cross-Functional Team Mgmt</span><span>Stakeholder Mgmt</span><span>Risk Mgmt</span><span>Status Reporting</span><span>Release Mgmt</span><span>Process Optimization</span><span>Trello · Asana · Linear</span></div>
+          </div>
+          <div class="pet">
+            <div class="pic"><svg viewBox="0 0 110 100"><ellipse cx="55" cy="92" rx="30" ry="5" fill="#9fb0e0"/><ellipse cx="55" cy="60" rx="30" ry="30" fill="#ff5a4a" stroke="#8a1a10" stroke-width="2"/><path d="M40 32 q15 -30 30 0" fill="#ffd54a" stroke="#8a1a10" stroke-width="2"/><circle cx="55" cy="26" r="4" fill="#fff" stroke="#8a1a10" stroke-width="2"/><ellipse cx="55" cy="70" rx="15" ry="11" fill="#ffd0c8"/><circle cx="45" cy="55" r="5" fill="#fff"/><circle cx="65" cy="55" r="5" fill="#fff"/><circle cx="46" cy="56" r="2.5"/><circle cx="66" cy="56" r="2.5"/><path d="M48 64 q7 6 14 0" stroke="#8a1a10" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="88" rx="7" ry="4" fill="#ff5a4a" stroke="#8a1a10" stroke-width="2"/><ellipse cx="70" cy="88" rx="7" ry="4" fill="#ff5a4a" stroke="#8a1a10" stroke-width="2"/></svg></div>
+            <div class="nm">Aiops <small>the Agentu</small></div>
+            <table><tr><td>Level</td><td>AI-native</td></tr><tr><td>Speed</td><td><div class="bar"><i style="width:98%"></i></div></td></tr><tr><td>Intelligence</td><td><div class="bar"><i style="width:94%"></i></div></td></tr><tr><td>Mood</td><td>Automating</td></tr></table>
+            <div class="items"><b>AI Ops &amp; Developer Productivity:</b><br><span class="rare">AI-Native Program Ops</span><span class="rare">Agent-run Workflows</span><span>AI Tool Evaluation &amp; Adoption</span><span>AI Transformation</span><span>Change Mgmt &amp; Enablement</span><span class="rare">Claude Code</span><span>Cursor</span><span>Manus</span><span>Vercel</span><span>Convex</span><span>Supabase</span><span>GitHub</span><span>Claude · ChatGPT · Gemini · Perplexity</span></div>
+          </div>
+          <div class="pet">
+            <div class="pic"><svg viewBox="0 0 110 100"><ellipse cx="55" cy="92" rx="30" ry="5" fill="#9fb0e0"/><path d="M25 70 q30 -60 60 0 q-30 25 -60 0z" fill="#3fbf5a" stroke="#155a24" stroke-width="2"/><ellipse cx="55" cy="62" rx="16" ry="10" fill="#d8f5dc"/><circle cx="45" cy="50" r="5" fill="#fff"/><circle cx="65" cy="50" r="5" fill="#fff"/><circle cx="46" cy="51" r="2.5"/><circle cx="66" cy="51" r="2.5"/><path d="M49 59 q6 4 12 0" stroke="#155a24" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M55 22 q-8 -12 2 -16 q8 8 -2 16" fill="#3fbf5a" stroke="#155a24" stroke-width="2"/><ellipse cx="40" cy="86" rx="7" ry="4" fill="#3fbf5a" stroke="#155a24" stroke-width="2"/><ellipse cx="70" cy="86" rx="7" ry="4" fill="#3fbf5a" stroke="#155a24" stroke-width="2"/></svg></div>
+            <div class="nm">Prodo <small>the Strategoo</small></div>
+            <table><tr><td>Level</td><td>0 → 1</td></tr><tr><td>Charisma</td><td><div class="bar"><i style="width:95%"></i></div></td></tr><tr><td>Focus</td><td><div class="bar"><i style="width:92%"></i></div></td></tr><tr><td>Mood</td><td>Prioritizing</td></tr></table>
+            <div class="items"><b>Product &amp; Operations:</b><br><span>Competitive Analysis</span><span>Product Strategy</span><span>Product Roadmaps</span><span>PRDs</span><span>User Journeys &amp; Stories</span><span>OKRs &amp; Metrics</span><span>GTM Strategy</span><span>Client Mgmt</span><span>Onboarding Enterprises</span><span>Executive Storytelling</span><span>Prioritized Decision-Making</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="two">
+        <section class="section" id="school">
+          <h2 class="hdr">Training School <small>education</small></h2>
+          <table class="t">
+            <tr><th>Course</th><td><b>BSE · Networked &amp; Social Systems Engineering</b><br>Computer Science + Game Theory + Graph Theory</td></tr>
+            <tr><th>School</th><td>University of Pennsylvania · School of Engineering &amp; Applied Science (SEAS)</td></tr>
+            <tr><th>Status</th><td>1 of 11 accepted into the NETS degree · Graduated Magna Cum Laude (top 20%) · TA for Engineering Entrepreneurship</td></tr>
+            <tr><th>Minor</th><td><b>Consumer Psychology &amp; Marketing</b> · The Wharton School</td></tr>
+          </table>
+        </section>
+        <section class="section" id="guild">
+          <h2 class="hdr">Guild <small>side project</small></h2>
+          <div class="guild">
+            <b>Trained on Vibes</b> · Guild Leader<br>
+            Teaching vibe coding and AI concepts in a simplified way for a non-technical audience, while building mini apps weekly.<br>
+            <div class="btnrow" style="justify-content:flex-start"><a class="btn" href="https://trainedonvibes.com" target="_blank" rel="noopener">Visit Guild →</a></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="footer">
+    Fan-made homage to a 1999 virtual pet site. Not affiliated with Neopets or its owners. All art drawn from scratch. ·
+    <a href="mailto:biancanpham@gmail.com">Neomail</a> · <a href="https://linkedin.com/in/biancapham" target="_blank" rel="noopener">LinkedIn</a> · <a href="index.html">Choose another version</a>
+  </div>
+</div>
+</body>
+</html>
