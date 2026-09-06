@@ -101,6 +101,20 @@
   .tbtn:active { transform: translateY(2px); box-shadow: none; }
   @media (max-width: 620px) { .tcard-body { grid-template-columns: 1fr; } .tcard-portrait { width: 148px; } }
 
+
+  /* ---------- Gym tabs ---------- */
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 -2px; padding: 0 6px; }
+  .tab { font-family: var(--pixel); font-size: 9px; letter-spacing: .5px; color: #1e3d6b; background: #fff; border: 2px solid var(--frame-dark); border-bottom: 0; border-radius: 8px 8px 0 0; padding: 9px 10px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; box-shadow: inset 0 0 0 2px var(--frame-light); }
+  .tab canvas { width: 18px; height: 18px; image-rendering: pixelated; }
+  .tab .q { width: 18px; height: 18px; border-radius: 3px; background: #c8ccd4; color: #fff; display: grid; place-items: center; font-size: 10px; }
+  .tab.is-locked { color: #8a97a8; background: #eef0f3; }
+  .tab.active { background: var(--fire); color: #fff; border-color: #8a2a1c; box-shadow: inset 0 0 0 2px #ff9a86; text-shadow: 1px 1px 0 #8a2a1c; }
+  .tab.active .q { background: #ff9a86; }
+  .tabpanes { border-top: 2px solid var(--frame-dark); padding-top: 18px; }
+  .pane[hidden] { display: none; }
+  .pane .locked { margin-top: 0; }
+  .pane h2 { margin-top: 0; }
+
   /* ---------- Guide ---------- */
   .guide { width: min(900px, 100%); }
   .guide h2 { font-family: var(--pixel); font-size: 13px; color: var(--fire); margin: 40px 0 14px; text-shadow: 2px 2px 0 var(--gold); display: flex; align-items: center; gap: 12px; }
@@ -207,7 +221,7 @@
     <!-- ---------- Text walkthrough / strategy guide ---------- -->
     <section class="guide" id="guide">
       <h2>STRATEGY GUIDE (TEXT VERSION) <span class="unlocked" id="unlocked"></span></h2>
-      <p class="guide-note">Gym entries below are hidden until you walk into that gym in the game. Use the TOWN MAP (START) to Fly between gyms.</p>
+      <p class="guide-note">Pick a gym tab. Each one unlocks when you walk into that gym in the game. Use the TOWN MAP (START) to Fly between gyms.</p>
       <div class="box">
         <h3>TRAINER: BIANCA PHAM</h3>
         <div class="sub">Technical Program &amp; Product Management · AI-Native Transformation &amp; Operations Leader</div>
@@ -525,9 +539,9 @@
     "..0lllhwwwwwwwwwwwwwwwwwwwwwwwww",
     "...0lllwwwwwwwwwwwwwwwwwwwwwwwww"
   ];
-  var PAL_PORTRAIT = { '0': '#2a1a12', h: '#3a2418', l: '#b8875a', s: '#f6d2b0', e: '#2a1a12', w: '#f6f6f6', n: '#e0b090', m: '#d86a6a', b: '#f2b4a4', j: '#86b89c', c: '#a89078' };
+  var PAL_PORTRAIT = { '0': '#1a1418', h: '#16161e', l: '#30303c', s: '#f6d2b0', e: '#2a1a12', w: '#f6f6f6', n: '#e0b090', m: '#d86a6a', b: '#f2b4a4', j: '#86b89c', c: '#a89078' };
   var PAL = {
-    player: { '0': '#1c1c2c', h: '#3a2418', l: '#b8875a', s: '#f6d2b0', t: '#f6f6f6', p: '#4a6aa8', j: '#86b89c' },
+    player: { '0': '#1c1c2c', h: '#16161e', l: '#2e2e3a', s: '#f6d2b0', t: '#f6f6f6', p: '#4a6aa8', j: '#86b89c' },
     prof: { '0': '#1c1c2c', h: '#b8b8b8', s: '#f6cfa5', t: '#3a3a5a', w: '#f8f8f8', p: '#5a4030' },
     husky: { '0': '#08080e', g: '#30303e', d: '#1a1a24', w: '#ffffff', b: '#5ab0ff', p: '#f08098' },
     aide: { '0': '#1c1c2c', h: '#4a2c20', s: '#f6cfa5', t: '#4a90d0', w: '#f8f8f8', p: '#3a3a5a' },
@@ -601,23 +615,57 @@
     });
     var c = document.getElementById('tcard-count'); if (c) c.textContent = badgeCount() + '/8 BADGES';
   }
-  // Gym entries in the guide stay locked until that gym is beaten in the game.
-  function refreshGuide() {
-    var n = 0;
-    document.querySelectorAll('#guide h2 canvas[data-badge]').forEach(function (cv) {
-      var h2 = cv.parentElement, boxEl = h2.nextElementSibling, g = GYMS[+cv.dataset.badge], open = !!badges[g.key];
-      var lock = h2.previousElementSibling;
-      if (!lock || !lock.classList.contains('locked')) {
-        lock = document.createElement('div'); lock.className = 'locked';
+  // Gym entries in the guide live in tabs; a gym's tab stays locked until that gym is beaten in the game.
+  var TABS = null;
+  function buildTabs() {
+    var guide = document.getElementById('guide'); if (!guide) return;
+    var heads = Array.prototype.slice.call(guide.querySelectorAll('h2 canvas[data-badge]')).map(function (c) { return c.parentElement; });
+    if (!heads.length) return;
+    var bar = document.createElement('div'); bar.className = 'tabs'; bar.setAttribute('role', 'tablist');
+    var panes = document.createElement('div'); panes.className = 'tabpanes';
+    var first = heads[0];
+    first.parentNode.insertBefore(bar, first); first.parentNode.insertBefore(panes, bar.nextSibling);
+    TABS = { bar: bar, panes: panes, items: [], active: null };
+    function addPane(key, h2, box, gym) {
+      var pane = document.createElement('div'); pane.className = 'pane'; pane.dataset.key = key; pane.setAttribute('role', 'tabpanel');
+      if (gym) {
+        var lock = document.createElement('div'); lock.className = 'locked';
         lock.innerHTML = '<span class="q">?</span><div><b>' + h2.textContent.split('·')[0].trim() + ' · ???</b><br>Locked. Walk into this gym in the game to reveal the job and its badge.</div>';
-        h2.parentNode.insertBefore(lock, h2);
+        pane.appendChild(lock);
       }
-      h2.hidden = !open; boxEl.hidden = !open; lock.hidden = open;
-      if (open) n++;
+      pane.appendChild(h2); pane.appendChild(box); panes.appendChild(pane);
+      var tab = document.createElement('button'); tab.type = 'button'; tab.className = 'tab'; tab.setAttribute('role', 'tab'); tab.dataset.key = key;
+      tab.addEventListener('click', function () { showTab(key); });
+      bar.appendChild(tab);
+      TABS.items.push({ key: key, gym: gym, tab: tab, pane: pane, h2: h2, box: box, lock: pane.querySelector('.locked') });
+    }
+    heads.forEach(function (h2) { var box = h2.nextElementSibling, g = GYMS[+h2.querySelector('canvas').dataset.badge]; addPane(g.key, h2, box, g); });
+    // education + skills follow as plain tabs
+    Array.prototype.slice.call(guide.querySelectorAll('h2')).forEach(function (h2) {
+      if (h2.querySelector('canvas') || h2.closest('.pane') || !h2.nextElementSibling || !h2.nextElementSibling.classList.contains('box')) return;
+      var t = h2.textContent.trim(); if (/STRATEGY GUIDE/.test(t)) return;
+      addPane(/LAB/.test(t) ? 'lab' : 'mart', h2, h2.nextElementSibling, null);
+    });
+  }
+  function showTab(key) {
+    if (!TABS) return; TABS.active = key;
+    TABS.items.forEach(function (it) { var on = it.key === key; it.pane.hidden = !on; it.tab.classList.toggle('active', on); it.tab.setAttribute('aria-selected', on); });
+  }
+  function refreshGuide() {
+    if (!TABS) buildTabs(); if (!TABS) return;
+    var n = 0;
+    TABS.items.forEach(function (it) {
+      if (!it.gym) { it.tab.innerHTML = it.key === 'lab' ? '🎓 LAB' : '🛒 MART'; return; }
+      var open = !!badges[it.gym.key];
+      it.h2.hidden = !open; it.box.hidden = !open; if (it.lock) it.lock.hidden = open;
+      it.tab.classList.toggle('is-locked', !open);
+      it.tab.innerHTML = '';
+      if (open) { var cv = document.createElement('canvas'); cv.width = 12; cv.height = 12; drawBadge(it.gym.id, cv.getContext('2d'), 0, 0, 1); it.tab.appendChild(cv); it.tab.appendChild(document.createTextNode(it.gym.leader.split(' ').pop() === 'CEO' ? 'STARTUP' : it.gym.name.replace(' GYM', ''))); n++; }
+      else { var q = document.createElement('span'); q.className = 'q'; q.textContent = '?'; it.tab.appendChild(q); it.tab.appendChild(document.createTextNode('GYM ' + (it.gym.id + 1))); }
     });
     var u = document.getElementById('unlocked'); if (u) u.textContent = n + '/8 GYMS UNLOCKED';
+    if (!TABS.active) showTab(TABS.items[0].key);
   }
-
   // ============================================================
   //  TILESET (procedural, full color)
   // ============================================================
@@ -1037,7 +1085,7 @@
       })
       .then(function () { return say(g.role + " fainted!", "BIANCA defeated GYM LEADER " + g.leader + "!", g.leader + ": " + g.outro); })
       .then(function () {
-        badges[g.key] = true; persist(); refreshGuide(); refreshCard(); jingle([523, 659, 784, 1047], 120);
+        badges[g.key] = true; persist(); refreshGuide(); refreshCard(); showTab(g.key); jingle([523, 659, 784, 1047], 120);
         scene = 'badge'; badgeShow = { i: g.id, t: 0 };
         return say("BIANCA received the " + g.badge + " from " + g.leader + "!", g.badgeDesc + (already ? "" : " (" + badgeCount() + "/8 BADGES)"));
       })
