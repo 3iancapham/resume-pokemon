@@ -31,3 +31,7 @@ The cast and dialogue are fictional game framing, not endorsements. `CARD.phone`
 `tests/playthrough.cjs` checks all eight gym encounters, guide unlocks, save/reload, menus, mobile layout, and keyboard focus. `tests/walkability.cjs` checks walking routes to all buildings and collisions. `tests/art-revision.cjs` checks six viewport sizes, constant shell proportions, art loading, and battle-screen compositing. The test scripts reference the bundled local Playwright/Chromium runtime; replace those paths to run on a different machine.
 
 `window.__game` exposes `tick`, `press`, `down`, `up`, `teleport`, `snapshot`, `drawMap`, `badgeSheet`, `castSheet`, `portrait`, plus state, position, badge, battle, and art-load snapshots.
+
+## Personal spaces
+
+Home is a walkable clubhouse with tennis, lacrosse, surfing, streetwear, travel, and a vibe-coding desk linking to https://trainedonvibes.com. Miko’s Rest Stop includes mental wellbeing, rescued-horse volunteering, Miko, and a quiet break. The Skill Mart offers Potion (team support), Repel (risk management), X Speed (automation), and Rare Candy (upskilling). Face an object and press A; B exits the room.
